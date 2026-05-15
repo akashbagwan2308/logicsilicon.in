@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogicSilicon | VLSI Training Excellence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Chosen Palette: Warm Neutrals with Deep Slate and Soft Amber accents (Stone-50 background, Slate-800 text, Amber-600 highlights) -->
+    <!-- Application Structure Plan: A single-page scrolling dashboard layout. It begins with a clear value proposition, flows into the Mentor's credibility (crucial for training), then presents interactive program details (45-day vs 6-month) with dynamic data visualizations to show curriculum breakdown. It concludes with the 1:1 mentorship unique selling proposition. This structure guides the user logically from 'Who are we' to 'Why trust us' to 'What we offer'. -->
+    <!-- Visualization & Content Choices: Report Info -> Program Curriculum Data; Goal -> Inform & Compare; Viz/Presentation Method -> Interactive Doughnut Chart & Dynamic Data Cards; Interaction -> Tab clicks update both textual content and chart datasets; Justification -> Allows users to compare the intensive short-term vs comprehensive long-term commitments easily without cluttering the screen; Library/Method -> Chart.js (Canvas), Vanilla JS DOM manipulation. Confirming NO SVG/Mermaid. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .nav-link.active {
+            color: #d97706; 
+            border-bottom: 2px solid #d97706;
+        }
+        .tab-btn.active {
+            background-color: #1e293b;
+            color: white;
+        }
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.95);
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+        .dark .tab-btn.active {
+            background-color: #d97706; /* amber-600 */
+            color: white;
+            border-color: #d97706;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            light: '#f8fafc',
+                            dark: '#0f172a',
+                            accent: '#d97706',
+                            muted: '#64748b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="bg-stone-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-sans antialiased selection:bg-amber-200 selection:text-slate-900 dark:selection:bg-amber-700 dark:selection:text-white transition-colors duration-300">
+
+    <nav class="fixed w-full z-50 glass-card shadow-sm transition-all duration-300 border-b border-transparent" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 bg-slate-800 dark:bg-amber-600 text-white rounded-lg flex items-center justify-center font-bold text-xl shadow-lg border-b-4 border-amber-600 dark:border-amber-800">
+                        LS
+                    </div>
+                    <span class="font-bold text-2xl tracking-tight text-slate-800 dark:text-white">LogicSilicon</span>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#about" class="nav-link text-slate-600 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 font-medium px-3 py-2 transition-colors">About Mentor</a>
+                    <a href="#why-us" class="nav-link text-slate-600 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 font-medium px-3 py-2 transition-colors">Why Us</a>
+                    <a href="#programs" class="nav-link text-slate-600 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 font-medium px-3 py-2 transition-colors">Training Programs</a>
+                    <a href="#mentorship" class="nav-link text-slate-600 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 font-medium px-3 py-2 transition-colors">1:1 Mentorship</a>
+                    
+                    <button id="theme-toggle" type="button" class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none rounded-lg text-sm p-2.5 transition-colors">
+                        <span id="theme-toggle-dark-icon" class="hidden text-xl">🌙</span>
+                        <span id="theme-toggle-light-icon" class="hidden text-xl">☀️</span>
+                    </button>
+                </div>
+                <div class="md:hidden flex items-center gap-4">
+                    <button id="theme-toggle-mobile" type="button" class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none rounded-lg text-sm p-2 transition-colors">
+                        <span id="theme-toggle-dark-icon-mobile" class="hidden text-xl">🌙</span>
+                        <span id="theme-toggle-light-icon-mobile" class="hidden text-xl">☀️</span>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white focus:outline-none text-3xl">
+                        &#9776;
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 absolute w-full shadow-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#about" class="block px-3 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md">About Mentor</a>
+                <a href="#why-us" class="block px-3 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md">Why Us</a>
+                <a href="#programs" class="block px-3 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md">Training Programs</a>
+                <a href="#mentorship" class="block px-3 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md">1:1 Mentorship</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-20">
+        <section id="hero" class="relative pt-24 pb-32 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 font-semibold text-sm mb-8 animate-bounce border border-amber-200 dark:border-amber-700/50">
+                    <span class="text-lg">&#128640;</span> New Batches Enrolling Now!
+                </div>
+                <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-6 leading-tight transition-colors">
+                    Master VLSI Design <br class="hidden md:block"/> 
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600 dark:from-amber-400 dark:to-orange-500">Secure Your DV Role</span>
+                </h1>
+                <p class="mt-4 max-w-2xl text-xl text-slate-600 dark:text-slate-300 mx-auto mb-10 leading-relaxed transition-colors">
+                    Industry-aligned training in Digital Electronics, Verilog, SystemVerilog, and UVM. Guided by engineers with top-tier EDA tool experience.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#programs" class="px-8 py-4 bg-slate-900 dark:bg-amber-600 text-white rounded-lg font-bold hover:bg-slate-800 dark:hover:bg-amber-500 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-center">Explore Programs</a>
+                    <a href="#mentorship" class="px-8 py-4 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 rounded-lg font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-sm text-center">Get 1:1 Mentorship</a>
+                </div>
+            </div>
+            
+            <div class="absolute top-1/2 left-0 w-64 h-64 bg-amber-300 dark:bg-amber-600 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-3xl opacity-20 dark:opacity-10 -translate-y-1/2 -translate-x-1/2"></div>
+            <div class="absolute top-1/2 right-0 w-96 h-96 bg-blue-300 dark:bg-blue-600 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-3xl opacity-20 dark:opacity-10 -translate-y-1/2 translate-x-1/2"></div>
+        </section>
+
+        <section id="about" class="py-20 bg-white dark:bg-slate-900 transition-colors">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-12 max-w-3xl">
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">Meet Your Mentor</h2>
+                    <p class="text-lg text-slate-600 dark:text-slate-400">The core of LogicSilicon is driven by authentic industry experience. Learn not just the syntax, but the engineering mindset required to excel in Design Verification.</p>
+                </div>
+                
+                <div class="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-8 md:p-12 border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col md:flex-row gap-10 items-center transition-colors">
+                    <div class="w-48 h-48 md:w-64 md:h-64 rounded-full bg-slate-200 dark:bg-slate-700 flex-shrink-0 flex items-center justify-center border-4 border-white dark:border-slate-800 shadow-xl relative overflow-hidden transition-colors">
+                        <span class="text-8xl text-slate-400 dark:text-slate-500">&#128104;&#8205;&#127979;</span>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Akash Bagwan</h3>
+                        <p class="text-amber-600 dark:text-amber-500 font-semibold text-lg mb-6 flex items-center gap-2">
+                            <span>&#128188;</span> Ex-Synopsys | VLSI Expert & Founder
+                        </p>
+                        <p class="text-slate-600 dark:text-slate-300 text-lg mb-6 leading-relaxed">
+                            With extensive hands-on experience at Synopsys, I founded LogicSilicon to bridge the gap between academic theory and industry reality. My mission is to mentor aspiring engineers through the complexities of Verilog, SV, and UVM, ensuring they are project-ready for top-tier semiconductor roles.
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm transition-colors">
+                                <div class="text-2xl mb-1">&#127919;</div>
+                                <div class="font-bold text-slate-900 dark:text-white">Practical Focus</div>
+                                <div class="text-sm text-slate-500 dark:text-slate-400">Real-world EDA workflows</div>
+                            </div>
+                            <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm transition-colors">
+                                <div class="text-2xl mb-1">&#129309;</div>
+                                <div class="font-bold text-slate-900 dark:text-white">Direct Mentorship</div>
+                                <div class="text-sm text-slate-500 dark:text-slate-400">Personalized career guidance</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-us" class="py-24 bg-slate-900 dark:bg-slate-950 text-white relative transition-colors">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-white mb-4">Why Choose LogicSilicon?</h2>
+                    <p class="text-xl text-slate-400 max-w-2xl mx-auto">We don't just teach syntax; we engineer your thought process to match top-tier semiconductor companies.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-slate-800 dark:bg-slate-900 p-8 rounded-2xl border border-slate-700 dark:border-slate-800 hover:border-amber-500 transition-colors">
+                        <div class="w-14 h-14 bg-slate-700 dark:bg-slate-800 rounded-xl flex items-center justify-center text-3xl mb-6 shadow-inner">
+                            &#128187;
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-slate-100">100% Hands-On Focus</h3>
+                        <p class="text-slate-400 leading-relaxed">Theory is immediately followed by rigorous coding. You will write, debug, and optimize Verilog and SV code daily, treating the terminal as your primary learning environment.</p>
+                    </div>
+                    
+                    <div class="bg-slate-800 dark:bg-slate-900 p-8 rounded-2xl border border-slate-700 dark:border-slate-800 hover:border-amber-500 transition-colors transform md:-translate-y-4 shadow-xl">
+                        <div class="w-14 h-14 bg-amber-600/20 text-amber-500 border border-amber-500/30 rounded-xl flex items-center justify-center text-3xl mb-6 shadow-inner">
+                            &#127919;
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-slate-100">Specialized for DV Roles</h3>
+                        <p class="text-slate-400 leading-relaxed">Unlike generic VLSI courses, we hyper-focus on Design Verification (DV) using SystemVerilog and UVM—the most highly demanded, lucrative skill in the market right now.</p>
+                    </div>
+
+                    <div class="bg-slate-800 dark:bg-slate-900 p-8 rounded-2xl border border-slate-700 dark:border-slate-800 hover:border-amber-500 transition-colors">
+                        <div class="w-14 h-14 bg-slate-700 dark:bg-slate-800 rounded-xl flex items-center justify-center text-3xl mb-6 shadow-inner">
+                            &#128736;
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-slate-100">Industry Protocol Projects</h3>
+                        <p class="text-slate-400 leading-relaxed">Bridge the "fresher gap" by working on live projects implementing industry-standard protocols like AXI, AHB, and APB. Build a portfolio that speaks louder than your resume.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="absolute top-0 left-1/2 w-full h-px bg-gradient-to-r from-transparent via-slate-700 dark:via-slate-800 to-transparent transform -translate-x-1/2"></div>
+        </section>
+
+        <section id="programs" class="py-24 bg-stone-50 dark:bg-slate-900 transition-colors">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-4">Training & Internship Programs</h2>
+                    <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Explore our newly launched interactive training tracks designed for different stages of your VLSI career journey.</p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-center mb-10 gap-4">
+                    <button id="btn-45day" class="tab-btn active px-6 py-3 rounded-full font-semibold text-sm transition-all border border-slate-300 dark:border-slate-700" onclick="switchProgram('45day')">
+                        45-Day Specialized Tracks
+                    </button>
+                    <button id="btn-6month" class="tab-btn px-6 py-3 rounded-full font-semibold text-sm transition-all bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 hover:border-slate-800 dark:hover:border-slate-500" onclick="switchProgram('6month')">
+                        6-Month Comprehensive DV
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                    
+                    <div class="space-y-6" id="program-content">
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl shadow-lg border border-slate-100 dark:border-slate-800">
+                        <h4 class="text-center font-bold text-slate-800 dark:text-white mb-2 text-lg" id="chart-title">Curriculum Distribution</h4>
+                        <p class="text-center text-sm text-slate-500 dark:text-slate-400 mb-6">Visualizing the time allocation across topics</p>
+                        <div class="chart-container">
+                            <canvas id="programChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mentorship" class="py-24 bg-slate-900 dark:bg-slate-950 text-white relative overflow-hidden transition-colors">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <div class="inline-block p-3 bg-slate-800 dark:bg-slate-900 rounded-2xl mb-6">
+                            <span class="text-4xl">&#128172;</span>
+                        </div>
+                        <h2 class="text-4xl font-bold mb-6">1:1 Dedicated Mentorship</h2>
+                        <p class="text-lg text-slate-300 dark:text-slate-400 mb-8 leading-relaxed">
+                            Generic courses don't fix specific roadblocks. Get direct access to Akash Bagwan for resume reviews, mock interviews, concept clarification, and career roadmapping.
+                        </p>
+                        <ul class="space-y-4 mb-10">
+                            <li class="flex items-start gap-3">
+                                <span class="text-amber-500 text-xl">&#10003;</span>
+                                <div>
+                                    <strong class="block text-white">Mock Interviews</strong>
+                                    <span class="text-slate-400 text-sm">Simulated technical rounds based on top semiconductor company patterns.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-amber-500 text-xl">&#10003;</span>
+                                <div>
+                                    <strong class="block text-white">Project Debugging</strong>
+                                    <span class="text-slate-400 text-sm">Stuck on a UVM testbench? Get expert architectural review and debugging help.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-amber-500 text-xl">&#10003;</span>
+                                <div>
+                                    <strong class="block text-white">Career Strategy</strong>
+                                    <span class="text-slate-400 text-sm">Resume optimization and targeted job application strategies.</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeGO47oHmgf5oeRQtJO_LnmT2-Zbeq2ljIrnAAk6cU73fDHFw/viewform" target="_blank" rel="noopener noreferrer" class="inline-block px-8 py-4 bg-amber-600 text-white rounded-lg font-bold hover:bg-amber-500 transition-all shadow-lg w-full sm:w-auto text-center">
+                            Book a Session Today
+                        </a>
+                    </div>
+                    <div class="relative">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-slate-800 dark:bg-slate-900 p-6 rounded-2xl border border-slate-700 dark:border-slate-800 transform translate-y-8 transition-colors">
+                                <div class="text-3xl mb-4">&#128200;</div>
+                                <div class="text-2xl font-bold text-white mb-1">90%</div>
+                                <div class="text-sm text-slate-400">Interview Success Rate Post-Mentorship</div>
+                            </div>
+                            <div class="bg-slate-800 dark:bg-slate-900 p-6 rounded-2xl border border-slate-700 dark:border-slate-800 transition-colors">
+                                <div class="text-3xl mb-4">&#128338;</div>
+                                <div class="text-2xl font-bold text-white mb-1">24/7</div>
+                                <div class="text-sm text-slate-400">Doubt clearing via private community</div>
+                            </div>
+                            <div class="bg-slate-800 dark:bg-slate-900 p-6 rounded-2xl border border-slate-700 dark:border-slate-800 transform translate-y-8 transition-colors">
+                                <div class="text-3xl mb-4">&#128187;</div>
+                                <div class="text-2xl font-bold text-white mb-1">100+</div>
+                                <div class="text-sm text-slate-400">Testbenches architected together</div>
+                            </div>
+                            <div class="bg-amber-600 dark:bg-amber-700 p-6 rounded-2xl border border-amber-500 dark:border-amber-600 shadow-xl shadow-amber-900/20 transition-colors">
+                                <div class="text-3xl mb-4 text-amber-100">&#127942;</div>
+                                <div class="text-xl font-bold text-white leading-snug">"The breakthrough I needed to clear my DV interview."</div>
+                                <div class="text-xs text-amber-200 mt-4">- Recent Mentee</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="absolute bottom-0 right-0 text-slate-800 dark:text-slate-900 opacity-50 transform translate-x-1/4 translate-y-1/4 pointer-events-none" style="font-size: 400px; line-height: 1;">
+                &#10022;
+            </div>
+        </section>
+
+        <section id="start-journey" class="py-20 bg-amber-500 dark:bg-amber-600 relative overflow-hidden transition-colors">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight">Start Your VLSI Journey Today</h2>
+                <p class="text-xl text-amber-900 dark:text-amber-100 mb-10 font-medium max-w-2xl mx-auto">
+                    Whether you need a quick 45-day practical jumpstart or a comprehensive 6-month transformation into a DV expert, LogicSilicon is your launchpad. Seats for the upcoming batch are limited.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeGO47oHmgf5oeRQtJO_LnmT2-Zbeq2ljIrnAAk6cU73fDHFw/viewform" target="_blank" rel="noopener noreferrer" class="inline-block px-8 py-4 bg-slate-900 dark:bg-slate-950 text-white rounded-xl font-bold hover:bg-slate-800 dark:hover:bg-slate-900 transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-1 border border-transparent dark:border-slate-800">
+                        Apply for 6-Month Training
+                    </a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeGO47oHmgf5oeRQtJO_LnmT2-Zbeq2ljIrnAAk6cU73fDHFw/viewform" target="_blank" rel="noopener noreferrer" class="inline-block px-8 py-4 bg-amber-100 dark:bg-white text-amber-900 dark:text-slate-900 rounded-xl font-bold hover:bg-white dark:hover:bg-amber-50 transition-all shadow-md hover:shadow-lg">
+                        Apply for 45-Day Internship
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Decorative background elements -->
+            <div class="absolute top-1/2 left-10 w-32 h-32 bg-amber-400 dark:bg-amber-500 rounded-full mix-blend-multiply opacity-50 animate-pulse -translate-y-1/2"></div>
+            <div class="absolute top-1/2 right-10 w-48 h-48 bg-amber-300 dark:bg-amber-400 rounded-full mix-blend-overlay opacity-50 -translate-y-1/2"></div>
+        </section>
+
+        <!-- Course Details Modal Overlay -->
+        <div id="courseModal" class="fixed inset-0 z-[100] hidden bg-slate-900/80 backdrop-blur-sm transition-opacity duration-300 opacity-0 flex items-center justify-center p-4 sm:p-6">
+            <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col transform scale-95 transition-all duration-300 border border-transparent dark:border-slate-700" id="modalContent">
+                
+                <!-- Modal Header -->
+                <div class="flex justify-between items-center p-6 lg:px-8 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 rounded-t-2xl">
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center" id="modalTitle">
+                        Course Syllabus
+                    </h2>
+                    <button onclick="closeModal()" class="text-slate-400 dark:text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 text-3xl font-bold leading-none w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">&times;</button>
+                </div>
+                
+                <!-- Modal Body (Scrollable) -->
+                <div class="p-6 lg:p-8 overflow-y-auto flex-grow custom-scrollbar" id="modalBody">
+                    <!-- Dynamic detailed content injected here via JS -->
+                </div>
+                
+                <!-- Modal Footer -->
+                <div class="p-6 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 rounded-b-2xl flex justify-end gap-4">
+                    <button onclick="closeModal()" class="px-6 py-2.5 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors shadow-sm">
+                        Close
+                    </button>
+                    <a id="modalApplyBtn" href="#" target="_blank" rel="noopener noreferrer" class="px-6 py-2.5 bg-slate-900 dark:bg-amber-600 text-white rounded-lg font-semibold hover:bg-slate-800 dark:hover:bg-amber-500 transition-colors shadow-md hover:shadow-lg">
+                        Apply Now
+                    </a>
+                </div>
+            </div>
+        </div>
+        <style>
+            /* Custom Scrollbar for Modal */
+            .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+            .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+            .dark .custom-scrollbar::-webkit-scrollbar-track { background: #1e293b; }
+            .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+            .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; }
+            .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+            .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        </style>
+
+    </main>
+
+    <footer class="bg-slate-950 dark:bg-black text-slate-400 py-12 border-t border-slate-900 dark:border-slate-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-slate-800 dark:bg-slate-900 text-white rounded flex items-center justify-center font-bold text-sm border border-slate-700">
+                    LS
+                </div>
+                <span class="font-bold text-xl text-white">LogicSilicon</span>
+            </div>
+            <div class="text-sm text-center md:text-left">
+                &copy; 2024 LogicSilicon. Designed for Future VLSI Engineers.
+            </div>
+            <div class="flex gap-4">
+                <span class="cursor-pointer hover:text-white transition-colors text-2xl">&#9993;</span>
+                <span class="cursor-pointer hover:text-white transition-colors text-2xl">&#128279;</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const programData = {
+            '45day': {
+                id: '45day',
+                applyLink: 'https://docs.google.com/forms/d/e/1FAIpQLSeGO47oHmgf5oeRQtJO_LnmT2-Zbeq2ljIrnAAk6cU73fDHFw/viewform',
+                title: "45-Day Specialized Training Tracks",
+                description: "Choose a dedicated 45-day <strong>Online Live Lecture</strong> track to master a specific subject domain. These focused courses are perfect for targeted skill building with intense daily hands-on practice.",
+                projectHighlight: "Each individual track includes dedicated mini-projects specific to the subject, ensuring practical application of theoretical concepts.",
+                modules: [
+                    { name: "Digital Electronics", icon: "&#128267;", desc: "Dedicated 45-day track covering Logic gates, combinational/sequential circuits, and complex FSMs." },
+                    { name: "Verilog HDL", icon: "&#128187;", desc: "Dedicated 45-day track focused purely on RTL coding, simulation, and synthesis fundamentals." },
+                    { name: "SystemVerilog (SV)", icon: "&#128295;", desc: "Dedicated 45-day track mastering OOP concepts, randomization, coverage, and SV interfaces." },
+                    { name: "UVM Basics", icon: "&#127919;", desc: "Dedicated 45-day track focused on Testbench architecture, UVM phases, and reporting mechanisms." }
+                ],
+                chartData: [25, 45, 20, 10],
+                chartLabels: ['Online Live Lectures', 'Hands-on Code Practice', 'Mini-Projects', 'Assignments & Tests'],
+                detailedSyllabus: `
+                    <div class="space-y-10">
+                        <p class="text-slate-600 dark:text-slate-300 bg-amber-50 dark:bg-amber-900/20 border-l-4 border-amber-500 dark:border-amber-500/50 p-4 rounded-r-lg font-medium transition-colors">
+                            Select one of the following tracks for an intensive 45-day learning journey. Each track includes daily live lectures, coding assignments, and a mini-project.
+                        </p>
+                        
+                        <div>
+                            <h4 class="text-xl font-bold text-amber-600 dark:text-amber-500 mb-4 border-b border-amber-200 dark:border-amber-900/50 pb-2 flex items-center gap-2"><span class="text-2xl">&#128267;</span> Track 1: Digital Electronics</h4>
+                            <ul class="grid grid-cols-1 md:grid-cols-2 gap-3 pl-5 list-disc text-slate-700 dark:text-slate-300 font-medium">
+                                <li>Number Systems & Boolean Algebra</li>
+                                <li>K-Map Minimization Techniques</li>
+                                <li>Combinational Circuits (Adders, MUX, Decoders)</li>
+                                <li>Sequential Circuits (Flip-Flops, Registers)</li>
+                                <li>Counters & Shift Registers</li>
+                                <li>Finite State Machines (Mealy & Moore)</li>
+                                <li>Basic Timing Analysis (Setup/Hold)</li>
+                                <li>Logic Families & Memory Basics</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="text-xl font-bold text-amber-600 dark:text-amber-500 mb-4 border-b border-amber-200 dark:border-amber-900/50 pb-2 flex items-center gap-2"><span class="text-2xl">&#128187;</span> Track 2: Verilog HDL</h4>
+                            <ul class="grid grid-cols-1 md:grid-cols-2 gap-3 pl-5 list-disc text-slate-700 dark:text-slate-300 font-medium">
+                                <li>Introduction to HDL & Abstraction Levels</li>
+                                <li>Verilog Data Types & Operators</li>
+                                <li>Gate-Level & Dataflow Modeling</li>
+                                <li>Behavioral Modeling (always, initial blocks)</li>
+                                <li>Blocking vs Non-Blocking Assignments</li>
+                                <li>FSM Design & Coding in Verilog</li>
+                                <li>Writing Robust Testbenches</li>
+                                <li>Synthesis Fundamentals & Guidelines</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="text-xl font-bold text-amber-600 dark:text-amber-500 mb-4 border-b border-amber-200 dark:border-amber-900/50 pb-2 flex items-center gap-2"><span class="text-2xl">&#128295;</span> Track 3: SystemVerilog (SV)</h4>
+                            <ul class="grid grid-cols-1 md:grid-cols-2 gap-3 pl-5 list-disc text-slate-700 dark:text-slate-300 font-medium">
+                                <li>SV Data Types (Arrays, Queues, Structs)</li>
+                                <li>Object-Oriented Programming (Classes)</li>
+                                <li>Inheritance, Polymorphism & Virtual Methods</li>
+                                <li>Inter-Process Comm (Mailboxes, Semaphores)</li>
+                                <li>Constrained Randomization</li>
+                                <li>Functional Coverage Configuration</li>
+                                <li>SV Interfaces, Modports & Clocking Blocks</li>
+                                <li>Building a Layered Testbench Architecture</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-xl font-bold text-amber-600 dark:text-amber-500 mb-4 border-b border-amber-200 dark:border-amber-900/50 pb-2 flex items-center gap-2"><span class="text-2xl">&#127919;</span> Track 4: UVM Basics</h4>
+                            <ul class="grid grid-cols-1 md:grid-cols-2 gap-3 pl-5 list-disc text-slate-700 dark:text-slate-300 font-medium">
+                                <li>Need for UVM & Methodology Basics</li>
+                                <li>UVM Class Hierarchy (Objects vs Components)</li>
+                                <li>UVM Phases & Factory Mechanics</li>
+                                <li>UVM Reporting Features</li>
+                                <li>TLM (Transaction Level Modeling) Ports</li>
+                                <li>Building UVM Agents (Driver, Monitor, Sequencer)</li>
+                                <li>UVM Sequences and Sequence Items</li>
+                                <li>Connecting the UVM Environment</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            },
+            '6month': {
+                id: '6month',
+                applyLink: 'https://docs.google.com/forms/d/e/1FAIpQLSeGO47oHmgf5oeRQtJO_LnmT2-Zbeq2ljIrnAAk6cU73fDHFw/viewform',
+                title: "6-Month Advanced VLSI Training for DV Role",
+                description: "An all-inclusive, zero-to-hero program covering everything from Digital logic to UVM. Includes <strong>Recorded Lectures, Learning Materials, Regular Tests, Assignments, Mock Interviews</strong>, and massive hands-on coding practices.",
+                projectHighlight: "End-to-end tape-out quality verification environment creation for complex standard protocols (AXI/AHB/I2C).",
+                modules: [
+                    { name: "Digital & Verilog Foundation", icon: "&#128267;", desc: "Start from scratch with Digital Electronics and master Verilog RTL design & simulation." },
+                    { name: "SystemVerilog & UVM Core", icon: "&#129321;", desc: "Deep dive into OOP, SV constructs, UVM factory, callbacks, and complex sequences." },
+                    { name: "Live Protocols & Projects", icon: "&#128736;", desc: "Hands-on verification of AMBA AXI, AHB, APB, I2C. Build standard environments." },
+                    { name: "Complete Placement Prep", icon: "&#128188;", desc: "Mock interviews, resume building, assignments, tests, and 24/7 access to materials." }
+                ],
+                chartData: [20, 30, 35, 15],
+                chartLabels: ['Digital & Verilog', 'SV & UVM Core', 'Protocol Projects', 'Mock Interviews & Prep'],
+                detailedSyllabus: `
+                    <div class="space-y-8">
+                        <p class="text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800/50 p-5 rounded-xl italic font-medium leading-relaxed border border-slate-200 dark:border-slate-700 transition-colors">
+                            The 6-Month program is a complete transformation journey. You start with foundational digital gates and graduate by verifying complex industry-standard protocols using the Universal Verification Methodology (UVM). 
+                        </p>
+                        
+                        <div class="relative ml-4 md:ml-6 mt-8">
+                            <!-- Vertical Timeline Line -->
+                            <div class="absolute w-1 bg-slate-200 dark:bg-slate-700 h-full -left-4 md:-left-6 top-2 rounded"></div>
+                            
+                            <div class="mb-10 relative">
+                                <div class="absolute w-4 h-4 bg-slate-400 dark:bg-slate-500 rounded-full -left-[22px] md:-left-[30px] top-1.5 border-2 border-white dark:border-slate-900 shadow-sm"></div>
+                                <h4 class="text-xl font-bold text-slate-800 dark:text-white mb-2">Month 1: Digital Electronics & Verilog Fundamentals</h4>
+                                <p class="text-slate-600 dark:text-slate-400 mb-3">Mastering the hardware mindset.</p>
+                                <ul class="list-disc pl-5 text-sm text-slate-700 dark:text-slate-300 space-y-1">
+                                    <li>Logic gates, K-Maps, Combinational & Sequential circuits.</li>
+                                    <li>Verilog syntax, Data types, Operators.</li>
+                                    <li>Gate-level, Dataflow, and Behavioral modeling.</li>
+                                    <li>Daily hands-on coding assignments on basic blocks.</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="mb-10 relative">
+                                <div class="absolute w-4 h-4 bg-slate-500 dark:bg-slate-400 rounded-full -left-[22px] md:-left-[30px] top-1.5 border-2 border-white dark:border-slate-900 shadow-sm"></div>
+                                <h4 class="text-xl font-bold text-slate-800 dark:text-white mb-2">Month 2: Advanced Verilog & Mini Projects</h4>
+                                <p class="text-slate-600 dark:text-slate-400 mb-3">Architecting complex digital structures.</p>
+                                <ul class="list-disc pl-5 text-sm text-slate-700 dark:text-slate-300 space-y-1">
+                                    <li>Advanced FSM design (Mealy/Moore variations).</li>
+                                    <li>Memory modeling (RAM, ROM, Synchronous/Asynchronous FIFOs).</li>
+                                    <li>Writing robust Verilog testbenches.</li>
+                                    <li><strong>Project:</strong> RTL Design and testing of a parameterized Async FIFO.</li>
+                                </ul>
+                            </div>
+
+                            <div class="mb-10 relative">
+                                <div class="absolute w-4 h-4 bg-amber-500 rounded-full -left-[22px] md:-left-[30px] top-1.5 border-2 border-white dark:border-slate-900 shadow-[0_0_8px_rgba(245,158,11,0.6)] dark:shadow-[0_0_8px_rgba(245,158,11,0.3)]"></div>
+                                <h4 class="text-xl font-bold text-slate-800 dark:text-white mb-2">Month 3: SystemVerilog Core & OOP Concepts</h4>
+                                <p class="text-slate-600 dark:text-slate-400 mb-3">Transitioning to dynamic verification languages.</p>
+                                <ul class="list-disc pl-5 text-sm text-slate-700 dark:text-slate-300 space-y-1">
+                                    <li>Advanced Data Types (Queues, Associative Arrays).</li>
+                                    <li>Object-Oriented Programming (Classes, Handles, Garbage Collection).</li>
+                                    <li>Inheritance, Polymorphism, and Virtual methods.</li>
+                                    <li>Inter-Process Communication (Mailboxes, Events, Semaphores).</li>
+                                </ul>
+                            </div>
+
+                            <div class="mb-10 relative">
+                                <div class="absolute w-4 h-4 bg-amber-600 rounded-full -left-[22px] md:-left-[30px] top-1.5 border-2 border-white dark:border-slate-900 shadow-[0_0_8px_rgba(217,119,6,0.6)] dark:shadow-[0_0_8px_rgba(217,119,6,0.3)]"></div>
+                                <h4 class="text-xl font-bold text-slate-800 dark:text-white mb-2">Month 4: SV Randomization, Coverage & Interfaces</h4>
+                                <p class="text-slate-600 dark:text-slate-400 mb-3">Building a layered testbench.</p>
+                                <ul class="list-disc pl-5 text-sm text-slate-700 dark:text-slate-300 space-y-1">
+                                    <li>Constrained random generation (rand, randc, constraints blocks).</li>
+                                    <li>Functional Coverage (Covergroups, Coverpoints, Bins).</li>
+                                    <li>SystemVerilog Assertions (SVA) basics.</li>
+                                    <li>Interfaces, Modports, Clocking blocks.</li>
+                                    <li><strong>Project:</strong> Complete Layered SV Testbench for an I2C Memory.</li>
+                                </ul>
+                            </div>
+
+                            <div class="mb-10 relative">
+                                <div class="absolute w-4 h-4 bg-orange-600 rounded-full -left-[22px] md:-left-[30px] top-1.5 border-2 border-white dark:border-slate-900 shadow-[0_0_8px_rgba(234,88,12,0.6)] dark:shadow-[0_0_8px_rgba(234,88,12,0.3)]"></div>
+                                <h4 class="text-xl font-bold text-slate-800 dark:text-white mb-2">Month 5: UVM Architecture & Components</h4>
+                                <p class="text-slate-600 dark:text-slate-400 mb-3">Adopting the industry standard methodology.</p>
+                                <ul class="list-disc pl-5 text-sm text-slate-700 dark:text-slate-300 space-y-1">
+                                    <li>UVM Class hierarchy and Factory overrides.</li>
+                                    <li>UVM Phases (Build, Connect, Run, etc.).</li>
+                                    <li>TLM Ports and connection mechanics.</li>
+                                    <li>Developing UVM Components (Driver, Monitor, Sequencer, Scoreboard).</li>
+                                    <li>UVM Sequences and Macros.</li>
+                                </ul>
+                            </div>
+
+                            <div class="relative">
+                                <div class="absolute w-5 h-5 bg-orange-600 rounded-full -left-[24px] md:-left-[32px] top-1 border-2 border-white dark:border-slate-900 animate-pulse shadow-[0_0_12px_rgba(234,88,12,0.9)] dark:shadow-[0_0_12px_rgba(234,88,12,0.5)]"></div>
+                                <h4 class="text-xl font-bold text-slate-800 dark:text-white mb-2">Month 6: Live Protocol Projects & Placement Drive</h4>
+                                <p class="text-slate-600 dark:text-slate-400 mb-3">Becoming interview-ready.</p>
+                                <ul class="list-disc pl-5 text-sm text-slate-700 dark:text-slate-300 space-y-1">
+                                    <li><strong>Major Project 1:</strong> UVM Verification of AMBA APB Protocol.</li>
+                                    <li><strong>Major Project 2:</strong> UVM Verification of AMBA AHB/AXI (Subset).</li>
+                                    <li>Resume building and optimization for ATS scanners.</li>
+                                    <li>1:1 Technical Mock Interviews with feedback.</li>
+                                    <li>HR round preparation and placement assistance.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        let currentChart = null;
+        
+        function getChartTextColor() {
+            return document.documentElement.classList.contains('dark') ? '#94a3b8' : '#64748b';
+        }
+
+        function initChart() {
+            const ctx = document.getElementById('programChart').getContext('2d');
+            Chart.defaults.color = getChartTextColor();
+            Chart.defaults.font.family = 'Inter, system-ui, sans-serif';
+            
+            currentChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        data: [],
+                        backgroundColor: [
+                            '#0f172a', 
+                            '#334155', 
+                            '#d97706', 
+                            '#f59e0b'  
+                        ],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '65%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            titleFont: { size: 14 },
+                            bodyFont: { size: 14 },
+                            padding: 12,
+                            cornerRadius: 8,
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed + '% Time';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderProgramContent(data) {
+            const container = document.getElementById('program-content');
+            
+            let html = `
+                <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 transition-colors">
+                    <h3 class="text-3xl font-bold text-slate-900 dark:text-white mb-3">${data.title}</h3>
+                    <p class="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">${data.description}</p>
+                    
+                    <div class="bg-amber-50 dark:bg-amber-900/20 border-l-4 border-amber-500 dark:border-amber-500/50 p-4 mb-8 rounded-r-lg transition-colors">
+                        <p class="text-amber-800 dark:text-amber-400 text-sm font-bold flex items-center gap-2 mb-1">
+                            <span class="text-lg">&#128640;</span> Hands-on Project Focus:
+                        </p>
+                        <p class="text-amber-900 dark:text-amber-100 text-sm">${data.projectHighlight}</p>
+                    </div>
+
+                    <div class="space-y-4">
+            `;
+
+            data.modules.forEach(mod => {
+                html += `
+                    <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-700/30 border border-slate-100 dark:border-slate-700 hover:border-amber-300 dark:hover:border-amber-600/50 hover:shadow-md transition-all cursor-default">
+                        <div class="w-12 h-12 bg-white dark:bg-slate-800 rounded-lg flex items-center justify-center text-2xl shadow-sm flex-shrink-0 transition-colors">
+                            ${mod.icon}
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 dark:text-slate-100 text-lg">${mod.name}</h4>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">${mod.desc}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `
+                    </div>
+                    
+                    <div class="mt-8 flex flex-col sm:flex-row justify-center sm:justify-start gap-4">
+                        <button onclick="openModal('${data.id}')" class="flex items-center justify-center gap-2 px-8 py-3.5 w-full sm:w-auto bg-slate-800 dark:bg-slate-700 text-white rounded-xl font-bold text-lg hover:bg-slate-700 dark:hover:bg-slate-600 transition-all shadow-md hover:shadow-lg border border-transparent">
+                            <span>&#128196;</span> View Full Syllabus
+                        </button>
+                        <a href="${data.applyLink}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 px-8 py-3.5 w-full sm:w-auto bg-amber-600 text-white rounded-xl font-bold text-lg hover:bg-amber-500 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 border border-amber-500 dark:border-transparent">
+                            <span>&#128640;</span> Apply Now
+                        </a>
+                    </div>
+
+                </div>
+            `;
+            container.innerHTML = html;
+        }
+
+        function updateChart(data) {
+            if (!currentChart) return;
+            currentChart.data.labels = data.chartLabels;
+            currentChart.data.datasets[0].data = data.chartData;
+            currentChart.update();
+        }
+
+        function switchProgram(type) {
+            const btn45 = document.getElementById('btn-45day');
+            const btn6m = document.getElementById('btn-6month');
+
+            if (type === '45day') {
+                btn45.classList.add('active', 'bg-slate-900', 'text-white', 'dark:bg-amber-600');
+                btn45.classList.remove('bg-white', 'text-slate-700', 'dark:bg-slate-800', 'dark:text-slate-300');
+                btn6m.classList.remove('active', 'bg-slate-900', 'text-white', 'dark:bg-amber-600');
+                btn6m.classList.add('bg-white', 'text-slate-700', 'dark:bg-slate-800', 'dark:text-slate-300');
+            } else {
+                btn6m.classList.add('active', 'bg-slate-900', 'text-white', 'dark:bg-amber-600');
+                btn6m.classList.remove('bg-white', 'text-slate-700', 'dark:bg-slate-800', 'dark:text-slate-300');
+                btn45.classList.remove('active', 'bg-slate-900', 'text-white', 'dark:bg-amber-600');
+                btn45.classList.add('bg-white', 'text-slate-700', 'dark:bg-slate-800', 'dark:text-slate-300');
+            }
+
+            const data = programData[type];
+            renderProgramContent(data);
+            updateChart(data);
+        }
+
+        // --- Theme Toggle Setup ---
+        function setupThemeToggle() {
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const themeToggleBtnMobile = document.getElementById('theme-toggle-mobile');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+            const darkIconMobile = document.getElementById('theme-toggle-dark-icon-mobile');
+            const lightIconMobile = document.getElementById('theme-toggle-light-icon-mobile');
+
+            function updateIcons() {
+                if (document.documentElement.classList.contains('dark')) {
+                    darkIcon.classList.add('hidden');
+                    lightIcon.classList.remove('hidden');
+                    if(darkIconMobile) darkIconMobile.classList.add('hidden');
+                    if(lightIconMobile) lightIconMobile.classList.remove('hidden');
+                } else {
+                    lightIcon.classList.add('hidden');
+                    darkIcon.classList.remove('hidden');
+                    if(lightIconMobile) lightIconMobile.classList.add('hidden');
+                    if(darkIconMobile) darkIconMobile.classList.remove('hidden');
+                }
+            }
+            
+            updateIcons();
+
+            function toggleTheme() {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                }
+                
+                updateIcons();
+                
+                // Update chart text colors
+                if(currentChart) {
+                    Chart.defaults.color = getChartTextColor();
+                    currentChart.update();
+                }
+            }
+
+            if(themeToggleBtn) themeToggleBtn.addEventListener('click', toggleTheme);
+            if(themeToggleBtnMobile) themeToggleBtnMobile.addEventListener('click', toggleTheme);
+        }
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        const sections = document.querySelectorAll("section");
+        const navLi = document.querySelectorAll(".nav-link");
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 100) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLi.forEach((a) => {
+                a.classList.remove("active");
+                if (a.getAttribute("href").includes(current) && current !== "hero") {
+                    a.classList.add("active");
+                }
+            });
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            setupThemeToggle();
+            initChart();
+            switchProgram('45day');
+        });
+
+        // --- Modal Control Functions ---
+        function openModal(programId) {
+            const modal = document.getElementById('courseModal');
+            const modalContent = document.getElementById('modalContent');
+            const data = programData[programId];
+            
+            // Populate Content
+            document.getElementById('modalTitle').innerHTML = data.title + " <span class='hidden md:inline text-amber-600 dark:text-amber-500 font-light text-xl ml-3 border-l-2 border-slate-300 dark:border-slate-700 pl-3'>Detailed Curriculum</span>";
+            document.getElementById('modalBody').innerHTML = data.detailedSyllabus;
+            
+            // Update Apply Button Link dynamically based on the selected program
+            const applyBtn = document.getElementById('modalApplyBtn');
+            if (applyBtn && data.applyLink) {
+                applyBtn.href = data.applyLink;
+            }
+
+            // Show and Animate In
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+            }, 10);
+            
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('courseModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = ''; 
+            }, 300);
+        }
+        
+        document.getElementById('courseModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
