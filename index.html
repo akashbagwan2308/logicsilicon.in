@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LogicSilicon | VLSI Training Excellence</title>
+    
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
-    <!-- Chosen Palette: Warm Neutrals with Deep Slate and Soft Amber accents (Stone-50 background, Slate-800 text, Amber-600 highlights) -->
-    <!-- Application Structure Plan: A single-page scrolling dashboard layout. It begins with a clear value proposition, flows into the Mentor's credibility (crucial for training), then presents interactive program details (45-day vs 6-month) with dynamic data visualizations to show curriculum breakdown. It concludes with the 1:1 mentorship unique selling proposition. This structure guides the user logically from 'Who are we' to 'Why trust us' to 'What we offer'. -->
-    <!-- Visualization & Content Choices: Report Info -> Program Curriculum Data; Goal -> Inform & Compare; Viz/Presentation Method -> Interactive Doughnut Chart & Dynamic Data Cards; Interaction -> Tab clicks update both textual content and chart datasets; Justification -> Allows users to compare the intensive short-term vs comprehensive long-term commitments easily without cluttering the screen; Library/Method -> Chart.js (Canvas), Vanilla JS DOM manipulation. Confirming NO SVG/Mermaid. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-
     <style>
         .chart-container {
             position: relative;
@@ -335,16 +333,13 @@
                 </div>
             </div>
             
-            <!-- Decorative background elements -->
             <div class="absolute top-1/2 left-10 w-32 h-32 bg-amber-400 dark:bg-amber-500 rounded-full mix-blend-multiply opacity-50 animate-pulse -translate-y-1/2"></div>
             <div class="absolute top-1/2 right-10 w-48 h-48 bg-amber-300 dark:bg-amber-400 rounded-full mix-blend-overlay opacity-50 -translate-y-1/2"></div>
         </section>
 
-        <!-- Course Details Modal Overlay -->
         <div id="courseModal" class="fixed inset-0 z-[100] hidden bg-slate-900/80 backdrop-blur-sm transition-opacity duration-300 opacity-0 flex items-center justify-center p-4 sm:p-6">
             <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col transform scale-95 transition-all duration-300 border border-transparent dark:border-slate-700" id="modalContent">
                 
-                <!-- Modal Header -->
                 <div class="flex justify-between items-center p-6 lg:px-8 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 rounded-t-2xl">
                     <h2 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center" id="modalTitle">
                         Course Syllabus
@@ -352,12 +347,9 @@
                     <button onclick="closeModal()" class="text-slate-400 dark:text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 text-3xl font-bold leading-none w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">&times;</button>
                 </div>
                 
-                <!-- Modal Body (Scrollable) -->
                 <div class="p-6 lg:p-8 overflow-y-auto flex-grow custom-scrollbar" id="modalBody">
-                    <!-- Dynamic detailed content injected here via JS -->
-                </div>
+                    </div>
                 
-                <!-- Modal Footer -->
                 <div class="p-6 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 rounded-b-2xl flex justify-end gap-4">
                     <button onclick="closeModal()" class="px-6 py-2.5 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors shadow-sm">
                         Close
@@ -500,7 +492,6 @@
                         </p>
                         
                         <div class="relative ml-4 md:ml-6 mt-8">
-                            <!-- Vertical Timeline Line -->
                             <div class="absolute w-1 bg-slate-200 dark:bg-slate-700 h-full -left-4 md:-left-6 top-2 rounded"></div>
                             
                             <div class="mb-10 relative">
