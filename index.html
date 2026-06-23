@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LogicSilicon - Master Design Verification, Verilog, SystemVerilog, and UVM. Get placed at top semiconductor companies.">
     <title>LogicSilicon | Verify any silicon</title>
     <link rel="icon" type="image/svg+xml" href="images/favicon1.svg">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -26,20 +27,20 @@
         .feature-card-bg {
             background: radial-gradient(circle at top right, #F5F9FF 0%, #FFFFFF 100%);
         }
-        /* Custom Scrollbar for the Carousel */
+        
+        /* Clean Carousel Track Setup - Hidden Scrollbar for seamless looping */
+        .carousel-track {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+            overflow-x: auto;
+            scroll-behavior: auto; /* Prevent CSS smooth scrolling from fighting JS */
+            cursor: grab;
+        }
         .carousel-track::-webkit-scrollbar {
-            height: 8px;
+            display: none; /* Hide Chrome/Safari scrollbar */
         }
-        .carousel-track::-webkit-scrollbar-track {
-            background: #f1f5f9; 
-            border-radius: 4px;
-        }
-        .carousel-track::-webkit-scrollbar-thumb {
-            background: #cbd5e1; 
-            border-radius: 4px;
-        }
-        .carousel-track::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8; 
+        .carousel-track:active {
+            cursor: grabbing;
         }
         
         /* Modal Inner Scrollbar Fix */
@@ -80,6 +81,7 @@
             box-shadow: 0 14px 40px rgba(0,0,0,0.08);
             transform: translateY(-4px);
         }
+        
         /* Modal Animation */
         .modal-enter {
             opacity: 0;
@@ -116,7 +118,7 @@
                     <a href="#features" class="text-gray-600 hover:text-blue-600 font-medium text-sm transition-colors">Why Us</a>
                     <a href="#ecosystem" class="text-gray-600 hover:text-blue-600 font-medium text-sm transition-colors">Ecosystem</a>
                     <a href="#programs" class="text-gray-600 hover:text-blue-600 font-medium text-sm transition-colors">Programs</a>
-                    <a href="#mentor" class="text-gray-600 hover:text-blue-600 font-medium text-sm transition-colors">Mentorship</a>
+                    <a href="#testimonials" class="text-gray-600 hover:text-blue-600 font-medium text-sm transition-colors">Testimonials</a>
                     <a href="https://ide.logicsilicon.in" target="_blank" class="text-gray-600 hover:text-blue-600 font-medium text-sm transition-colors">IDE</a>
                     <a href="javascript:void(0)" onclick="openApplyModal('General Inquiry / Career Guidance')" class="px-5 py-2 bg-blue-600 text-white rounded-full font-medium text-sm hover:bg-blue-700 transition-colors">Get started</a>
                 </nav>
@@ -285,7 +287,6 @@
 
         <section class="py-24 bg-white" id="features">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
-                
                 <div class="flex flex-col md:flex-row items-center gap-16">
                     <div class="w-full md:w-1/2">
                         <h4 class="text-blue-600 font-bold tracking-wide uppercase text-sm mb-2">Development</h4>
@@ -327,7 +328,6 @@
                         <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23ecfdf5' rx='10'/><rect x='30' y='30' width='40' height='40' stroke='%2310b981' stroke-width='6' fill='none'/><path d='M20 50 L30 50 M70 50 L80 50 M50 20 L50 30 M50 70 L50 80' stroke='%2310b981' stroke-width='6'/></svg>" alt="Protocols" class="w-1/2 opacity-80">
                     </div>
                 </div>
-
             </div>
         </section>
 
@@ -461,75 +461,178 @@
         </section>
 
         <section class="py-24 bg-white" id="programs">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl font-bold text-gray-900 mb-10">Latest Programs</h2>
+            <div class="w-full">
+                <h2 class="text-4xl font-bold text-gray-900 mb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">Latest Programs</h2>
                 
-                <div class="flex overflow-x-auto gap-6 pb-8 carousel-track select-none">
+                <div class="flex gap-6 py-4 pb-8 carousel-track cursor-grab w-full px-4 sm:px-6 lg:px-8">
                     
-                    <div class="min-w-[320px] max-w-[320px] bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow flex flex-col shrink-0">
-                        <div class="h-48 bg-blue-50 rounded-t-xl flex items-center justify-center p-6 relative overflow-hidden">
-                            <span class="text-6xl absolute -bottom-4 -right-4 opacity-20">📱</span>
-                            <h3 class="text-2xl font-bold text-blue-900 z-10">Digital & Verilog</h3>
+                    <div class="min-w-[280px] w-[280px] md:min-w-[320px] md:w-[320px] aspect-square bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col shrink-0 overflow-hidden border border-gray-100">
+                        <div class="h-2/5 bg-[#F4F8FF] flex items-center justify-center p-6 relative">
+                            <span class="text-5xl opacity-40 z-0">🔋</span>
+                            <h3 class="text-2xl font-bold text-[#1E3A8A] z-10 text-center ml-2">Digital<br>Electronics</h3>
                         </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <h4 class="font-bold text-gray-900 mb-2">45-Day Specialized Track</h4>
-                            <p class="text-gray-600 text-sm flex-1 mb-6">Master logic gates, FSMs, and pure RTL coding with daily hands-on assignments.</p>
-                            <div class="flex items-center gap-4 mt-auto">
-                                <button onclick="openSyllabusModal('45day')" class="text-gray-600 font-bold hover:text-blue-600 transition-colors text-sm flex items-center gap-1 cursor-pointer">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg> Syllabus
-                                </button>
-                                <a href="javascript:void(0)" onclick="openApplyModal('45-Day Specialized Training Track')" class="text-blue-600 font-bold hover:underline flex items-center gap-1 text-sm ml-auto">Apply now &rarr;</a>
+                        <div class="p-6 flex-1 flex flex-col bg-white">
+                            <h4 class="font-bold text-gray-900 mb-2">45-Day Track</h4>
+                            <p class="text-gray-600 text-sm flex-1 mb-4 leading-relaxed">Master logic gates, FSMs, and combinational/sequential circuits.</p>
+                            <div class="flex items-center mt-auto justify-between border-t border-gray-50 pt-4">
+                                <button onclick="openSyllabusModal('45day')" class="text-gray-500 font-bold hover:text-blue-600 transition-colors text-xs">Syllabus</button>
+                                <a href="javascript:void(0)" onclick="openApplyModal('45-Day Specialized Training Track')" class="text-blue-600 font-bold hover:underline flex items-center text-xs">Apply &rarr;</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="min-w-[320px] max-w-[320px] bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow flex flex-col shrink-0">
-                        <div class="h-48 bg-purple-50 rounded-t-xl flex items-center justify-center p-6 relative overflow-hidden">
-                            <span class="text-6xl absolute -bottom-4 -right-4 opacity-20">⚙️</span>
-                            <h3 class="text-2xl font-bold text-purple-900 z-10">SystemVerilog</h3>
+                    <div class="min-w-[280px] w-[280px] md:min-w-[320px] md:w-[320px] aspect-square bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col shrink-0 overflow-hidden border border-gray-100">
+                        <div class="h-2/5 bg-[#F0FDF4] flex items-center justify-center p-6 relative">
+                            <span class="text-5xl opacity-40 z-0">💻</span>
+                            <h3 class="text-2xl font-bold text-[#065F46] z-10 text-center ml-2">Verilog HDL</h3>
                         </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <h4 class="font-bold text-gray-900 mb-2">45-Day Specialized Track</h4>
-                            <p class="text-gray-600 text-sm flex-1 mb-6">Deep dive into OOP concepts, randomization, coverage, and layered testbenches.</p>
-                            <div class="flex items-center gap-4 mt-auto">
-                                <button onclick="openSyllabusModal('45day')" class="text-gray-600 font-bold hover:text-blue-600 transition-colors text-sm flex items-center gap-1 cursor-pointer">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg> Syllabus
-                                </button>
-                                <a href="javascript:void(0)" onclick="openApplyModal('45-Day Specialized Training Track')" class="text-blue-600 font-bold hover:underline flex items-center gap-1 text-sm ml-auto">Apply now &rarr;</a>
+                        <div class="p-6 flex-1 flex flex-col bg-white">
+                            <h4 class="font-bold text-gray-900 mb-2">45-Day Track</h4>
+                            <p class="text-gray-600 text-sm flex-1 mb-4 leading-relaxed">Transition from logic to code. Master RTL modeling and robust testbenches.</p>
+                            <div class="flex items-center mt-auto justify-between border-t border-gray-50 pt-4">
+                                <button onclick="openSyllabusModal('45day')" class="text-gray-500 font-bold hover:text-emerald-600 transition-colors text-xs">Syllabus</button>
+                                <a href="javascript:void(0)" onclick="openApplyModal('45-Day Specialized Training Track')" class="text-emerald-600 font-bold hover:underline flex items-center text-xs">Apply &rarr;</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="min-w-[320px] max-w-[320px] bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow flex flex-col shrink-0">
-                        <div class="h-48 bg-emerald-50 rounded-t-xl flex items-center justify-center p-6 relative overflow-hidden">
-                            <span class="text-6xl absolute -bottom-4 -right-4 opacity-20">🎯</span>
-                            <h3 class="text-2xl font-bold text-emerald-900 z-10">UVM Basics</h3>
+                    <div class="min-w-[280px] w-[280px] md:min-w-[320px] md:w-[320px] aspect-square bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col shrink-0 overflow-hidden border border-gray-100">
+                        <div class="h-2/5 bg-[#FCF5FF] flex items-center justify-center p-6 relative">
+                            <span class="text-5xl opacity-40 z-0">⚙️</span>
+                            <h3 class="text-2xl font-bold text-[#6B21A8] z-10 text-center ml-2">SystemVerilog</h3>
                         </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <h4 class="font-bold text-gray-900 mb-2">45-Day Specialized Track</h4>
-                            <p class="text-gray-600 text-sm flex-1 mb-6">Understand UVM class hierarchy, factory mechanics, phases, and TLM ports.</p>
-                            <div class="flex items-center gap-4 mt-auto">
-                                <button onclick="openSyllabusModal('45day')" class="text-gray-600 font-bold hover:text-blue-600 transition-colors text-sm flex items-center gap-1 cursor-pointer">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg> Syllabus
-                                </button>
-                                <a href="javascript:void(0)" onclick="openApplyModal('45-Day Specialized Training Track')" class="text-blue-600 font-bold hover:underline flex items-center gap-1 text-sm ml-auto">Apply now &rarr;</a>
+                        <div class="p-6 flex-1 flex flex-col bg-white">
+                            <h4 class="font-bold text-gray-900 mb-2">45-Day Track</h4>
+                            <p class="text-gray-600 text-sm flex-1 mb-4 leading-relaxed">Deep dive into OOP concepts, randomization, coverage, and layered TBs.</p>
+                            <div class="flex items-center mt-auto justify-between border-t border-gray-50 pt-4">
+                                <button onclick="openSyllabusModal('45day')" class="text-gray-500 font-bold hover:text-purple-600 transition-colors text-xs">Syllabus</button>
+                                <a href="javascript:void(0)" onclick="openApplyModal('45-Day Specialized Training Track')" class="text-purple-600 font-bold hover:underline flex items-center text-xs">Apply &rarr;</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="min-w-[320px] max-w-[320px] bg-gray-900 rounded-xl border border-gray-800 shadow-md hover:shadow-lg transition-shadow flex flex-col shrink-0">
-                        <div class="h-48 bg-gradient-to-br from-gray-800 to-black rounded-t-xl flex items-center p-6 relative overflow-hidden">
-                            <div class="absolute top-0 right-0 w-32 h-32 bg-blue-600 rounded-bl-full opacity-20"></div>
-                            <h3 class="text-3xl font-bold text-white z-10">6-Month<br>Comprehensive DV</h3>
+                    <div class="min-w-[280px] w-[280px] md:min-w-[320px] md:w-[320px] aspect-square bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col shrink-0 overflow-hidden border border-gray-100">
+                        <div class="h-2/5 bg-[#FFF7ED] flex items-center justify-center p-6 relative">
+                            <span class="text-5xl opacity-40 z-0">🎯</span>
+                            <h3 class="text-2xl font-bold text-[#9A3412] z-10 text-center ml-2">UVM Basics</h3>
                         </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <h4 class="font-bold text-gray-100 mb-2">The Ultimate Transformation</h4>
-                            <p class="text-gray-400 text-sm flex-1 mb-6">From logic gates to verifying AXI/AHB protocols. Includes mock interviews and 1:1 mentorship.</p>
-                            <div class="flex items-center gap-4 mt-auto">
-                                <button onclick="openSyllabusModal('6month')" class="text-gray-400 font-bold hover:text-white transition-colors text-sm flex items-center gap-1 cursor-pointer">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg> Syllabus
-                                </button>
-                                <a href="javascript:void(0)" onclick="openApplyModal('6-Month Advanced DV Training Program')" class="text-blue-400 font-bold hover:underline flex items-center gap-1 text-sm ml-auto">Apply now &rarr;</a>
+                        <div class="p-6 flex-1 flex flex-col bg-white">
+                            <h4 class="font-bold text-gray-900 mb-2">45-Day Track</h4>
+                            <p class="text-gray-600 text-sm flex-1 mb-4 leading-relaxed">Understand UVM class hierarchy, factory mechanics, phases, and TLM ports.</p>
+                            <div class="flex items-center mt-auto justify-between border-t border-gray-50 pt-4">
+                                <button onclick="openSyllabusModal('45day')" class="text-gray-500 font-bold hover:text-orange-600 transition-colors text-xs">Syllabus</button>
+                                <a href="javascript:void(0)" onclick="openApplyModal('45-Day Specialized Training Track')" class="text-orange-600 font-bold hover:underline flex items-center text-xs">Apply &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="min-w-[280px] w-[280px] md:min-w-[320px] md:w-[320px] aspect-square bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col shrink-0 overflow-hidden border border-gray-100">
+                        <div class="h-2/5 bg-[#FDF2F8] flex items-center justify-center p-6 relative">
+                            <span class="text-5xl opacity-40 z-0">🛠️</span>
+                            <h3 class="text-2xl font-bold text-[#9D174D] z-10 text-center ml-2">Protocol<br>Projects</h3>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col bg-white">
+                            <h4 class="font-bold text-gray-900 mb-2">Advancement Track</h4>
+                            <p class="text-gray-600 text-sm flex-1 mb-4 leading-relaxed">Real-world implementation of industry protocols like APB, FIFO, and ALU.</p>
+                            <div class="flex items-center mt-auto justify-between border-t border-gray-50 pt-4">
+                                <button onclick="openSyllabusModal('projects')" class="text-gray-500 font-bold hover:text-pink-600 transition-colors text-xs">Syllabus</button>
+                                <a href="javascript:void(0)" onclick="openApplyModal('45-Day Specialized Training Track')" class="text-pink-600 font-bold hover:underline flex items-center text-xs">Apply &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="min-w-[280px] w-[280px] md:min-w-[320px] md:w-[320px] aspect-square bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col shrink-0 overflow-hidden border border-gray-100">
+                        <div class="h-2/5 bg-[#FEF2F2] flex items-center justify-center p-6 relative">
+                            <span class="text-5xl opacity-40 z-0">⚡</span>
+                            <h3 class="text-2xl font-bold text-[#991B1B] z-10 text-center ml-2">Verilog<br>Masterclass</h3>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col bg-white">
+                            <h4 class="font-bold text-gray-900 mb-2">1-Week Revision</h4>
+                            <p class="text-gray-600 text-sm flex-1 mb-4 leading-relaxed">A high-intensity, rapid revision bootcamp to refresh your Verilog basics.</p>
+                            <div class="flex items-center mt-auto justify-between border-t border-gray-50 pt-4">
+                                <span class="text-gray-400 font-medium text-xs">Fast-paced</span>
+                                <a href="javascript:void(0)" onclick="openApplyModal('General Inquiry / Career Guidance')" class="text-red-600 font-bold hover:underline flex items-center text-xs">Apply &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="min-w-[280px] w-[280px] md:min-w-[320px] md:w-[320px] aspect-square bg-slate-900 rounded-3xl shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col shrink-0 overflow-hidden border border-slate-800">
+                        <div class="h-2/5 bg-gradient-to-br from-slate-800 to-black flex items-center justify-center p-6 relative border-b border-slate-800">
+                            <h3 class="text-3xl font-bold text-white z-10 text-center leading-tight">6-Month<br>DV Program</h3>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col bg-slate-900">
+                            <h4 class="font-bold text-white mb-2">The Ultimate Transformation</h4>
+                            <p class="text-slate-400 text-sm flex-1 mb-4 leading-relaxed">From logic gates to AXI protocols. Includes mock interviews & 1:1 mentorship.</p>
+                            <div class="flex items-center mt-auto justify-between border-t border-slate-800 pt-4">
+                                <button onclick="openSyllabusModal('6month')" class="text-slate-400 font-bold hover:text-white transition-colors text-xs">Syllabus</button>
+                                <a href="javascript:void(0)" onclick="openApplyModal('6-Month Advanced DV Training Program')" class="text-blue-400 font-bold hover:text-blue-300 flex items-center text-xs">Apply &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-gray-50 border-y border-gray-200" id="testimonials">
+            <div class="w-full">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4 text-center">Student Success Stories</h2>
+                <p class="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto px-4">Hear from engineers who transformed their careers through our hands-on Design Verification training.</p>
+
+                <div class="flex gap-8 py-4 pb-12 carousel-track cursor-grab w-full px-4 sm:px-6 lg:px-8 items-stretch">
+                    
+                    <div class="min-w-[360px] max-w-[360px] md:min-w-[420px] md:max-w-[420px] bg-white rounded-3xl p-8 shadow-sm border border-gray-100 flex flex-col shrink-0 hover:shadow-lg transition-shadow duration-300">
+                        <div class="text-blue-300 mb-6">
+                            <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true"><path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" /></svg>
+                        </div>
+                        <p class="text-gray-700 text-lg mb-8 leading-relaxed flex-1">"The 5-day digital logic revision at the start was exactly what I needed to refresh my basics. From there, transitioning into Verilog felt seamless. Implementing the Async FIFO project on their cloud IDE was the highlight of this 45-day internship!"</p>
+                        <div class="flex items-center gap-4 mt-auto pt-4 border-t border-gray-50">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-lg shrink-0">PN</div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-base">Piyush Nagle</h4>
+                                <p class="text-gray-500 text-sm font-medium">B.Tech Student, EC</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="min-w-[360px] max-w-[360px] md:min-w-[420px] md:max-w-[420px] bg-white rounded-3xl p-8 shadow-sm border border-gray-100 flex flex-col shrink-0 hover:shadow-lg transition-shadow duration-300">
+                        <div class="text-purple-300 mb-6">
+                            <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true"><path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" /></svg>
+                        </div>
+                        <p class="text-gray-700 text-lg mb-8 leading-relaxed flex-1">"LogicSilicon’s integrated ecosystem is brilliant. Using the LMS for theory, coding directly on the IDE, and testing my knowledge on the assessment portal made learning Verilog highly efficient. The final FIFO project was tough but incredibly rewarding."</p>
+                        <div class="flex items-center gap-4 mt-auto pt-4 border-t border-gray-50">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold text-lg shrink-0">VP</div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-base">Vinayak Patidar</h4>
+                                <p class="text-gray-500 text-sm font-medium">B.Tech Student, EC</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="min-w-[360px] max-w-[360px] md:min-w-[420px] md:max-w-[420px] bg-white rounded-3xl p-8 shadow-sm border border-gray-100 flex flex-col shrink-0 hover:shadow-lg transition-shadow duration-300">
+                        <div class="text-emerald-300 mb-6">
+                            <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true"><path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" /></svg>
+                        </div>
+                        <p class="text-gray-700 text-lg mb-8 leading-relaxed flex-1">"This 45-day Verilog training bridged the massive gap between my B.Tech syllabus and actual industry work. Writing testbenches for the Async FIFO gave me hands-on experience that I could never have gotten from just reading textbooks."</p>
+                        <div class="flex items-center gap-4 mt-auto pt-4 border-t border-gray-50">
+                            <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-lg shrink-0">KJ</div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-base">Khwahish Joshi</h4>
+                                <p class="text-gray-500 text-sm font-medium">B.Tech Student, EC</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="min-w-[360px] max-w-[360px] md:min-w-[420px] md:max-w-[420px] bg-white rounded-3xl p-8 shadow-sm border border-gray-100 flex flex-col shrink-0 hover:shadow-lg transition-shadow duration-300">
+                        <div class="text-orange-300 mb-6">
+                            <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true"><path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" /></svg>
+                        </div>
+                        <p class="text-gray-700 text-lg mb-8 leading-relaxed flex-1">"A truly intensive and practical internship! The structured daily assignments kept me disciplined. By the time I finished the Verilog FIFO project and cleared all the portal assessments, my confidence in RTL coding had skyrocketed."</p>
+                        <div class="flex items-center gap-4 mt-auto pt-4 border-t border-gray-50">
+                            <div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-lg shrink-0">RY</div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-base">Rajat Yadav</h4>
+                                <p class="text-gray-500 text-sm font-medium">B.Tech Student, EC</p>
                             </div>
                         </div>
                     </div>
@@ -545,6 +648,7 @@
                         Have a query?<br>Drop us a message.
                     </h2>
                 </div>
+                
                 <div class="w-full pt-2">
                     <p class="text-gray-600 text-lg mb-6">
                         Ask us anything about our programs, mentorship, or placement support:
@@ -554,11 +658,13 @@
                             <span class="absolute inset-y-0 left-4 flex items-center text-gray-400 text-lg">✉️</span>
                             <input type="email" id="queryEmail" required placeholder="Enter your email address" class="w-full bg-gray-100 border-none rounded-full py-4 pl-12 pr-6 focus:ring-2 focus:ring-blue-600 outline-none transition-all placeholder-gray-500 text-gray-900">
                         </div>
+                        
                         <div id="expandableFields" class="hidden opacity-0 transition-opacity duration-300 space-y-4 pt-2">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <input type="text" id="queryFirstName" required placeholder="First name" class="w-full bg-gray-100 border-none rounded-full py-4 px-6 focus:ring-2 focus:ring-blue-600 outline-none transition-all placeholder-gray-500 text-gray-900">
                                 <input type="text" id="queryLastName" placeholder="Last name" class="w-full bg-gray-100 border-none rounded-full py-4 px-6 focus:ring-2 focus:ring-blue-600 outline-none transition-all placeholder-gray-500 text-gray-900">
                             </div>
+
                             <div class="relative">
                                 <select id="queryCountry" required class="w-full bg-gray-100 border-none rounded-full py-4 px-6 focus:ring-2 focus:ring-blue-600 outline-none transition-all text-gray-900 appearance-none">
                                     <option value="" disabled selected>Select your country</option>
@@ -573,11 +679,14 @@
                                     <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                                 </div>
                             </div>
+
                             <textarea id="queryText" required placeholder="Type your question here..." rows="3" class="w-full bg-gray-100 border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-blue-600 outline-none transition-all resize-none placeholder-gray-500 text-gray-900"></textarea>
+                            
                             <div class="flex items-start gap-3 mt-4 text-xs text-gray-500 leading-relaxed">
                                 <input type="checkbox" id="queryTerms" required class="mt-1 w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 cursor-pointer">
                                 <label for="queryTerms">By submitting, you agree to be contacted by LogicSilicon. Your information will be securely stored in our query database.</label>
                             </div>
+
                             <button type="submit" class="bg-blue-600 text-white px-8 py-3.5 rounded-full font-bold hover:bg-blue-700 transition-colors mt-6 shadow-md hover:shadow-lg w-full sm:w-auto">
                                 Submit query
                             </button>
@@ -591,6 +700,7 @@
         <section class="pb-16 bg-white px-4">
             <div class="max-w-5xl mx-auto bg-blue-900 rounded-3xl overflow-hidden relative shadow-2xl">
                 <div class="absolute top-0 right-0 w-1/2 h-full bg-blue-600 transform origin-bottom-left -skew-x-12 translate-x-20"></div>
+                
                 <div class="relative p-12 md:p-20 z-10">
                     <h2 class="text-4xl font-bold text-white mb-4">Get started</h2>
                     <p class="text-xl text-blue-100 mb-8 max-w-lg">
@@ -619,6 +729,7 @@
                     </div> 
                     <span class="font-bold text-2xl text-gray-800 tracking-tight">LogicSilicon</span>
                 </div>
+                
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-8 w-full lg:w-3/4">
                     <div>
                         <h5 class="font-bold text-gray-900 mb-5">About LogicSilicon</h5>
@@ -664,9 +775,6 @@
                 <a href="https://www.instagram.com/logicsilicon.in/" target="_blank" aria-label="Instagram" class="hover:text-black transition-colors">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                 </a>
-                <a href="mailto:akashbagwan@logicsilicon.in" aria-label="Email" class="hover:text-black transition-colors">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M2 5.5A2.5 2.5 0 0 1 4.5 3h15A2.5 2.5 0 0 1 22 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 18.5v-13zM4.5 4.5a1 1 0 0 0-1 1v.707l8.146 5.82a.75.75 0 0 0 .708 0L20.5 6.207V5.5a1 1 0 0 0-1-1h-15zM3 7.854v10.646a1 1 0 0 0 1 1h15a1 1 0 0 0 1-1V7.854l-7.793 5.566a2.25 2.25 0 0 1-2.414 0L3 7.854z"/></svg>
-                </a>
             </div>
 
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center pt-8 border-t border-gray-200 text-sm text-gray-500 gap-4">
@@ -691,7 +799,6 @@
             
             <div class="p-6 md:p-8 overflow-y-auto flex-grow custom-scrollbar">
                 <form id="applyForm" class="space-y-6">
-                    
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-1">Full Name <span class="text-red-500">*</span></label>
@@ -701,7 +808,6 @@
                             <label class="block text-sm font-bold text-gray-700 mb-1">Email Address <span class="text-red-500">*</span></label>
                             <input type="email" id="applyEmail" required placeholder="john@example.com" class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 focus:ring-2 focus:ring-blue-600 focus:bg-white outline-none transition-all placeholder-gray-400 text-gray-900">
                         </div>
-
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-1">WhatsApp / Contact <span class="text-red-500">*</span></label>
                             <input type="tel" id="applyPhone" required placeholder="+91 9876543210" class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 focus:ring-2 focus:ring-blue-600 focus:bg-white outline-none transition-all placeholder-gray-400 text-gray-900">
@@ -710,7 +816,6 @@
                             <label class="block text-sm font-bold text-gray-700 mb-1">Current Location <span class="text-red-500">*</span></label>
                             <input type="text" id="applyLocation" required placeholder="City, State" class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 focus:ring-2 focus:ring-blue-600 focus:bg-white outline-none transition-all placeholder-gray-400 text-gray-900">
                         </div>
-
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-1">College / University Name <span class="text-red-500">*</span></label>
                             <input type="text" id="applyCollege" required placeholder="Enter university name" class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 focus:ring-2 focus:ring-blue-600 focus:bg-white outline-none transition-all placeholder-gray-400 text-gray-900">
@@ -719,7 +824,6 @@
                             <label class="block text-sm font-bold text-gray-700 mb-1">Year of Graduation (or Expected) <span class="text-red-500">*</span></label>
                             <input type="text" id="applyGradYear" required placeholder="e.g. 2024" class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 focus:ring-2 focus:ring-blue-600 focus:bg-white outline-none transition-all placeholder-gray-400 text-gray-900">
                         </div>
-
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-1">Current Status <span class="text-red-500">*</span></label>
                             <div class="relative">
@@ -735,7 +839,6 @@
                                 </div>
                             </div>
                         </div>
-                        
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-1">Country <span class="text-red-500">*</span></label>
                             <div class="relative">
@@ -753,7 +856,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="md:col-span-2">
                             <label class="block text-sm font-bold text-gray-700 mb-1">Which program are you interested in? <span class="text-red-500">*</span></label>
                             <div class="relative">
@@ -975,53 +1077,79 @@
             });
         }
         
-        /* Carousel Auto-Scroll */
-        const carousel = document.querySelector('.carousel-track');
-        let isDown = false;
-        let scrollInterval;
+        /* Multiple Seamless JS Cloned Infinite Scroll */
+        const carousels = document.querySelectorAll('.carousel-track');
+        
+        carousels.forEach(carousel => {
+            // Clone items for perfect loop
+            const items = Array.from(carousel.children);
+            items.forEach(item => {
+                const clone = item.cloneNode(true);
+                clone.setAttribute('aria-hidden', 'true');
+                carousel.appendChild(clone);
+            });
 
-        function startAutoScroll() {
-            if(scrollInterval) clearInterval(scrollInterval);
-            scrollInterval = setInterval(() => {
-                if (!isDown && carousel) {
-                    carousel.scrollLeft += 1;
-                    if (Math.ceil(carousel.scrollLeft) >= (carousel.scrollWidth - carousel.clientWidth)) {
-                        carousel.scrollLeft = 0;
-                    }
-                }
-            }, 25);
-        }
-
-        if(carousel) {
+            let isDown = false;
+            let scrollInterval;
             let startX;
             let scrollLeft;
+
+            function startAutoScroll() {
+                if(scrollInterval) clearInterval(scrollInterval);
+                scrollInterval = setInterval(() => {
+                    if (!isDown && carousel) {
+                        carousel.scrollLeft += 1;
+                        // Since we duplicated content, halfway is the exact reset point
+                        if (Math.ceil(carousel.scrollLeft) >= carousel.scrollWidth / 2) {
+                            carousel.scrollLeft = 0;
+                        }
+                    }
+                }, 20); // Smooth frame rate
+            }
+
             carousel.addEventListener('mousedown', (e) => {
                 isDown = true;
                 carousel.classList.add('cursor-grabbing');
+                carousel.classList.remove('cursor-grab');
                 startX = e.pageX - carousel.offsetLeft;
                 scrollLeft = carousel.scrollLeft;
                 clearInterval(scrollInterval);
             });
+
             carousel.addEventListener('mouseleave', () => {
                 isDown = false;
                 carousel.classList.remove('cursor-grabbing');
+                carousel.classList.add('cursor-grab');
                 startAutoScroll();
             });
+
             carousel.addEventListener('mouseup', () => {
                 isDown = false;
                 carousel.classList.remove('cursor-grabbing');
+                carousel.classList.add('cursor-grab');
                 startAutoScroll();
             });
+
             carousel.addEventListener('mousemove', (e) => {
                 if (!isDown) return;
                 e.preventDefault();
                 const x = e.pageX - carousel.offsetLeft;
                 const walk = (x - startX) * 2; 
                 carousel.scrollLeft = scrollLeft - walk;
+
+                // Infinite drag correction (both ways)
+                if (carousel.scrollLeft >= carousel.scrollWidth / 2) {
+                    carousel.scrollLeft -= carousel.scrollWidth / 2;
+                    scrollLeft -= carousel.scrollWidth / 2;
+                } else if (carousel.scrollLeft <= 0) {
+                    carousel.scrollLeft += carousel.scrollWidth / 2;
+                    scrollLeft += carousel.scrollWidth / 2;
+                }
             });
+
             carousel.addEventListener('mouseenter', () => clearInterval(scrollInterval));
             startAutoScroll();
-        }
+        });
 
         /* Syllabus Modal Data Logic */
         const syllabusData = {
@@ -1062,17 +1190,17 @@
                             </ul>
                         </div>
                         <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200">
-                            <div class="text-3xl mb-3">🔧</div>
+                            <div class="text-3xl mb-3">⚙️</div>
                             <h4 class="text-lg font-bold text-gray-900 mb-4 pb-2 border-b border-gray-200">Track 3: SystemVerilog (SV)</h4>
                             <ul class="space-y-2 text-sm text-gray-700">
-                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> SV Data Types (Arrays, Queues, Structs)</li>
-                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Object-Oriented Programming (Classes)</li>
-                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Inheritance, Polymorphism & Virtual Methods</li>
-                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Inter-Process Comm (Mailboxes, Semaphores)</li>
-                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Constrained Randomization</li>
-                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Functional Coverage Configuration</li>
-                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> SV Interfaces, Modports & Clocking Blocks</li>
-                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Building a Layered Testbench Architecture</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-purple-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> SV Data Types (Arrays, Queues, Structs)</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-purple-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Object-Oriented Programming (Classes)</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-purple-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Inheritance, Polymorphism & Virtual Methods</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-purple-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Inter-Process Comm (Mailboxes, Semaphores)</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-purple-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Constrained Randomization</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-purple-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Functional Coverage Configuration</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-purple-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> SV Interfaces, Modports & Clocking Blocks</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-purple-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Building a Layered Testbench Architecture</li>
                             </ul>
                         </div>
                         <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200">
@@ -1088,6 +1216,83 @@
                                 <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-orange-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> UVM Sequences and Sequence Items</li>
                                 <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-orange-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Connecting the UVM Environment</li>
                             </ul>
+                        </div>
+                    </div>
+                `
+            },
+            'projects': {
+                title: "Project Advancement Track",
+                applyProgramName: "45-Day Specialized Training Track",
+                html: `
+                    <p class="text-gray-600 bg-pink-50 border-l-4 border-pink-500 p-4 mb-8 rounded-r-lg">
+                        Bridge the gap between academia and industry by implementing real-world protocols. You will architect, code, and verify complete design blocks.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                            <h4 class="text-xl font-bold text-gray-900 mb-2">1. Parameterized Async FIFO</h4>
+                            <p class="text-sm text-gray-600 mb-4">Design and verify a dual-clock FIFO critical for CDC (Clock Domain Crossing) in modern SoCs.</p>
+                            <ul class="list-disc pl-5 text-gray-700 space-y-1 text-sm">
+                                <li>Gray Code Pointers & Synchronization</li>
+                                <li>Full/Empty Condition Logic</li>
+                                <li>Creating a robust SV Testbench to verify corner cases</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                            <h4 class="text-xl font-bold text-gray-900 mb-2">2. AMBA APB Verification</h4>
+                            <p class="text-sm text-gray-600 mb-4">Develop a complete UVM environment for the Advanced Peripheral Bus (APB).</p>
+                            <ul class="list-disc pl-5 text-gray-700 space-y-1 text-sm">
+                                <li>Understanding APB Read/Write Cycles</li>
+                                <li>Building UVM Agent (Driver, Monitor, Sequencer)</li>
+                                <li>Writing directed and random sequences</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                            <h4 class="text-xl font-bold text-gray-900 mb-2">3. Complex ALU Design</h4>
+                            <p class="text-sm text-gray-600 mb-4">Design a pipelined Arithmetic Logic Unit supporting various instruction sets.</p>
+                            <ul class="list-disc pl-5 text-gray-700 space-y-1 text-sm">
+                                <li>Pipelining Concepts & Hazard Resolution</li>
+                                <li>Developing a reference model in SystemVerilog</li>
+                                <li>Scoreboard implementation for self-checking TB</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            },
+            'masterclass': {
+                title: "1-Week Verilog Masterclass",
+                applyProgramName: "General Inquiry / Career Guidance",
+                html: `
+                    <p class="text-gray-600 bg-red-50 border-l-4 border-red-500 p-4 mb-8 rounded-r-lg">
+                        A rapid, high-intensity bootcamp designed for upcoming interviews. We refresh your core Verilog concepts in just 7 days.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 flex items-start gap-4">
+                            <div class="font-bold text-red-600 min-w-[60px]">Day 1</div>
+                            <div class="text-sm text-gray-700">Digital Logic brush-up: K-Maps, Setup/Hold Time, Critical Path.</div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 flex items-start gap-4">
+                            <div class="font-bold text-red-600 min-w-[60px]">Day 2</div>
+                            <div class="text-sm text-gray-700">Verilog Basics: Data types, Operators, Gate vs Dataflow modeling.</div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 flex items-start gap-4">
+                            <div class="font-bold text-red-600 min-w-[60px]">Day 3</div>
+                            <div class="text-sm text-gray-700">Behavioral Modeling: always blocks, initial blocks, sensitivity lists.</div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 flex items-start gap-4">
+                            <div class="font-bold text-red-600 min-w-[60px]">Day 4</div>
+                            <div class="text-sm text-gray-700">Blocking vs Non-Blocking assignments (The #1 interview question).</div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 flex items-start gap-4">
+                            <div class="font-bold text-red-600 min-w-[60px]">Day 5</div>
+                            <div class="text-sm text-gray-700">FSMs: Mealy and Moore machine coding techniques.</div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 flex items-start gap-4">
+                            <div class="font-bold text-red-600 min-w-[60px]">Day 6</div>
+                            <div class="text-sm text-gray-700">Testbenches: How to write robust verification environments in pure Verilog.</div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 flex items-start gap-4">
+                            <div class="font-bold text-red-600 min-w-[60px]">Day 7</div>
+                            <div class="text-sm text-gray-700">Mock Interview & Synthesis Guidelines.</div>
                         </div>
                     </div>
                 `
