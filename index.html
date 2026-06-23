@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LogicSilicon | Verify any silicon</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="images/favicon1.svg">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
@@ -41,12 +41,63 @@
         .carousel-track::-webkit-scrollbar-thumb:hover {
             background: #94a3b8; 
         }
+        
+        /* Modal Inner Scrollbar Fix */
+        .custom-scrollbar {
+            padding-right: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+
         .floating-card {
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             transition: transform 0.3s ease;
         }
         .floating-card:hover {
             transform: translateY(-5px);
+        }
+        .logo-box {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+            border: 1px solid #f9fafb;
+            transition: all 0.3s ease;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-box:hover {
+            box-shadow: 0 14px 40px rgba(0,0,0,0.08);
+            transform: translateY(-4px);
+        }
+        /* Modal Animation */
+        .modal-enter {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        .modal-enter-active {
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 300ms ease-out, transform 300ms ease-out;
+        }
+        .modal-leave {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .modal-leave-active {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 200ms ease-in, transform 200ms ease-in;
         }
     </style>
 </head>
@@ -67,7 +118,7 @@
                     <a href="#programs" class="text-gray-600 hover:text-blue-600 font-medium text-sm transition-colors">Programs</a>
                     <a href="#mentor" class="text-gray-600 hover:text-blue-600 font-medium text-sm transition-colors">Mentorship</a>
                     <a href="https://ide.logicsilicon.in" target="_blank" class="text-gray-600 hover:text-blue-600 font-medium text-sm transition-colors">IDE</a>
-                    <a href="#programs" class="px-5 py-2 bg-blue-600 text-white rounded-full font-medium text-sm hover:bg-blue-700 transition-colors">Get started</a>
+                    <a href="javascript:void(0)" onclick="openApplyModal('General Inquiry / Career Guidance')" class="px-5 py-2 bg-blue-600 text-white rounded-full font-medium text-sm hover:bg-blue-700 transition-colors">Get started</a>
                 </nav>
             </div>
         </div>
@@ -128,7 +179,7 @@
                 <h2 class="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto font-normal leading-relaxed mb-8">
                     LogicSilicon transforms the DV learning process. Master, simulate, and assess your Verilog, SystemVerilog, and UVM skills from a single integrated ecosystem.
                 </h2>
-                <a href="#programs" class="inline-block px-8 py-3.5 bg-white text-blue-600 rounded-full font-bold text-lg hover:bg-gray-50 transition-colors shadow-lg">
+                <a href="javascript:void(0)" onclick="openApplyModal('General Inquiry / Career Guidance')" class="inline-block px-8 py-3.5 bg-white text-blue-600 rounded-full font-bold text-lg hover:bg-gray-50 transition-colors shadow-lg">
                     Get started
                 </a>
             </div>
@@ -280,7 +331,7 @@
             </div>
         </section>
 
-<section class="py-12 bg-white" id="mentor">
+        <section class="py-12 bg-white" id="mentor">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="bg-gradient-to-r from-orange-100 to-amber-50 rounded-3xl p-10 md:p-16 flex flex-col md:flex-row items-center gap-10">
                     <div class="w-full md:w-2/3">
@@ -291,7 +342,7 @@
                         <p class="text-gray-700 text-lg mb-8">
                             With hands-on experience at Synopsys, Akash provides 1:1 mentorship, mock interviews, and project debugging to ensure you are project-ready for top-tier roles.
                         </p>
-                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeGO47oHmgf5oeRQtJO_LnmT2-Zbeq2ljIrnAAk6cU73fDHFw/viewform" target="_blank" class="inline-flex items-center font-bold text-gray-900 hover:text-orange-600 transition-colors">
+                        <a href="javascript:void(0)" onclick="openApplyModal('1:1 Dedicated Mentorship Session')" class="inline-flex items-center font-bold text-gray-900 hover:text-orange-600 transition-colors">
                             Book a 1:1 Session <span class="ml-2">&rarr;</span>
                         </a>
                     </div>
@@ -304,59 +355,94 @@
             </div>
         </section>
 
-
         <section class="py-32 bg-gray-50 border-y border-gray-200 overflow-hidden">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
-                <div class="flex justify-center items-center gap-6 md:gap-8 mb-24 relative">
+                <div class="flex justify-center items-center gap-4 lg:gap-6 mb-32 relative w-full max-w-[1400px] mx-auto overflow-visible">
                     
-                    <div class="flex flex-col gap-4 md:gap-6 translate-y-8 hidden sm:flex">
-                        <div class="w-20 h-20 md:w-28 md:h-28 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center p-4 hover:shadow-md transition-all transform hover:-translate-y-1">
-                            <img src="images/synopsys-logo.png" alt="Synopsys" class="max-w-full max-h-full object-contain opacity-80 hover:opacity-100">
+                    <div class="hidden xl:flex flex-col gap-4 lg:gap-6 translate-y-8 w-24 lg:w-28 shrink-0">
+                        <div class="logo-box w-full aspect-square rounded-2xl p-4">
+                            <img src="images/ti-logo.png" alt="Texas Instruments" class="max-w-full max-h-full object-contain opacity-70">
                         </div>
-                        <div class="w-20 h-20 md:w-28 md:h-28 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center p-4 hover:shadow-md transition-all transform hover:-translate-y-1">
-                            <img src="images/arm-logo.png" alt="ARM" class="max-w-full max-h-full object-contain opacity-80 hover:opacity-100">
+                        <div class="logo-box w-full aspect-[4/3] rounded-2xl p-4">
+                            <img src="images/nxp-logo.png" alt="NXP" class="max-w-full max-h-full object-contain opacity-70">
                         </div>
-                    </div>
-                    
-                    <div class="flex flex-col gap-4 md:gap-6 -translate-y-4">
-                        <div class="w-24 h-24 md:w-36 md:h-36 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center p-6 hover:shadow-md transition-all transform hover:-translate-y-1">
-                            <img src="images/intel-logo.png" alt="Intel" class="max-w-full max-h-full object-contain opacity-80 hover:opacity-100">
+                        <div class="logo-box w-full aspect-square rounded-2xl p-4">
+                            <img src="images/micron-logo.png" alt="Micron" class="max-w-full max-h-full object-contain opacity-70">
                         </div>
-                        <div class="w-24 h-24 md:w-36 md:h-36 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center p-6 hover:shadow-md transition-all transform hover:-translate-y-1">
-                            <img src="images/cadence-logo.png" alt="Cadence" class="max-w-full max-h-full object-contain opacity-80 hover:opacity-100">
+                        <div class="logo-box w-full aspect-[4/3] rounded-2xl p-4">
+                            <img src="images/infineon-logo.png" alt="Infineon" class="max-w-full max-h-full object-contain opacity-70">
                         </div>
                     </div>
 
-                    <div class="flex flex-col gap-4 md:gap-6 z-10">
-                        <div class="w-36 h-36 md:w-64 md:h-64 bg-white rounded-3xl shadow-lg border border-gray-100 flex items-center justify-center p-8 hover:shadow-xl transition-all transform hover:-translate-y-2">
+                    <div class="hidden lg:flex flex-col gap-4 lg:gap-6 -translate-y-4 w-28 lg:w-36 shrink-0">
+                        <div class="logo-box w-full aspect-[4/3] rounded-2xl p-5">
+                            <img src="images/stmicro-logo.png" alt="STMicro" class="max-w-full max-h-full object-contain opacity-80">
+                        </div>
+                        <div class="logo-box w-full aspect-square rounded-2xl p-5">
+                            <img src="images/renesas-logo.png" alt="Renesas" class="max-w-full max-h-full object-contain opacity-80">
+                        </div>
+                        <div class="logo-box w-full aspect-[4/3] rounded-2xl p-5">
+                            <img src="images/microchip-logo.png" alt="Microchip" class="max-w-full max-h-full object-contain opacity-80">
+                        </div>
+                    </div>
+
+                    <div class="hidden sm:flex flex-col gap-4 lg:gap-6 translate-y-6 w-32 lg:w-44 shrink-0">
+                        <div class="logo-box w-full aspect-square rounded-3xl p-6 lg:p-8">
+                            <img src="images/synopsys-logo.png" alt="Synopsys" class="max-w-full max-h-full object-contain opacity-90">
+                        </div>
+                        <div class="logo-box w-full aspect-square rounded-3xl p-6 lg:p-8">
+                            <img src="images/arm-logo.png" alt="ARM" class="max-w-full max-h-full object-contain opacity-90">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-4 lg:gap-6 z-10 w-56 md:w-72 lg:w-[22rem] shrink-0">
+                        <div class="logo-box w-full aspect-square rounded-3xl lg:rounded-[3rem] p-10 lg:p-16">
                             <img src="images/google-logo.png" alt="Google" class="max-w-full max-h-full object-contain">
                         </div>
                     </div>
 
-                    <div class="flex flex-col gap-4 md:gap-6 -translate-y-4">
-                        <div class="w-24 h-24 md:w-36 md:h-36 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center p-6 hover:shadow-md transition-all transform hover:-translate-y-1">
-                            <img src="images/nvidia-logo.png" alt="Nvidia" class="max-w-full max-h-full object-contain opacity-80 hover:opacity-100">
+                    <div class="hidden sm:flex flex-col gap-4 lg:gap-6 -translate-y-8 w-32 lg:w-44 shrink-0">
+                        <div class="logo-box w-full aspect-[4/3] rounded-3xl p-6 lg:p-8">
+                            <img src="images/nvidia-logo.png" alt="Nvidia" class="max-w-full max-h-full object-contain opacity-90">
                         </div>
-                        <div class="w-24 h-24 md:w-36 md:h-36 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center p-6 hover:shadow-md transition-all transform hover:-translate-y-1">
-                            <img src="images/amd-logo.png" alt="AMD" class="max-w-full max-h-full object-contain opacity-80 hover:opacity-100">
+                        <div class="logo-box w-full aspect-square rounded-3xl p-6 lg:p-8">
+                            <img src="images/amd-logo.png" alt="AMD" class="max-w-full max-h-full object-contain opacity-90">
                         </div>
                     </div>
 
-                    <div class="flex flex-col gap-4 md:gap-6 translate-y-8 hidden sm:flex">
-                        <div class="w-20 h-20 md:w-28 md:h-28 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center p-4 hover:shadow-md transition-all transform hover:-translate-y-1">
-                            <img src="images/qualcomm-logo.png" alt="Qualcomm" class="max-w-full max-h-full object-contain opacity-80 hover:opacity-100">
+                    <div class="hidden lg:flex flex-col gap-4 lg:gap-6 translate-y-2 w-28 lg:w-36 shrink-0">
+                        <div class="logo-box w-full aspect-[4/3] rounded-2xl p-5">
+                            <img src="images/intel-logo.png" alt="Intel" class="max-w-full max-h-full object-contain opacity-80">
                         </div>
-                        <div class="w-20 h-20 md:w-28 md:h-28 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center p-4 hover:shadow-md transition-all transform hover:-translate-y-1">
-                            <img src="images/broadcom-logo.png" alt="Broadcom" class="max-w-full max-h-full object-contain opacity-80 hover:opacity-100">
+                        <div class="logo-box w-full aspect-square rounded-2xl p-5">
+                            <img src="images/cadence-logo.png" alt="Cadence" class="max-w-full max-h-full object-contain opacity-80">
+                        </div>
+                        <div class="logo-box w-full aspect-square rounded-2xl p-5">
+                            <img src="images/qualcomm-logo.png" alt="Qualcomm" class="max-w-full max-h-full object-contain opacity-80">
+                        </div>
+                    </div>
+
+                    <div class="hidden xl:flex flex-col gap-4 lg:gap-6 -translate-y-12 w-24 lg:w-28 shrink-0">
+                        <div class="logo-box w-full aspect-[4/3] rounded-2xl p-4">
+                            <img src="images/broadcom-logo.png" alt="Broadcom" class="max-w-full max-h-full object-contain opacity-70">
+                        </div>
+                        <div class="logo-box w-full aspect-square rounded-2xl p-4">
+                            <img src="images/marvell-logo.png" alt="Marvell" class="max-w-full max-h-full object-contain opacity-70">
+                        </div>
+                        <div class="logo-box w-full aspect-square rounded-2xl p-4">
+                            <img src="images/samsung-logo.png" alt="Samsung" class="max-w-full max-h-full object-contain opacity-70">
+                        </div>
+                        <div class="logo-box w-full aspect-[4/3] rounded-2xl p-4">
+                            <img src="images/tsmc-logo.png" alt="TSMC" class="max-w-full max-h-full object-contain opacity-70">
                         </div>
                     </div>
                 </div>
 
                 <div class="text-center">
-                    <h4 class="text-gray-800 font-bold tracking-wide text-sm mb-4">A competitive, future-proof skillset</h4>
-                    <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">Targeting the top semiconductor giants</h2>
-                    <p class="text-gray-600 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+                    <h4 class="text-gray-800 font-bold tracking-wide text-sm mb-4 uppercase">A competitive, future-proof skillset</h4>
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 tracking-tight">Targeting the top semiconductor giants</h2>
+                    <p class="text-gray-600 text-lg lg:text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
                         Gain the exact Design Verification skills required by industry leaders. Master SystemVerilog and UVM to secure your placement at the world's top tech companies.
                     </p>
                     
@@ -364,7 +450,7 @@
                         <a href="#programs" class="px-6 py-2.5 bg-white border border-blue-600 text-blue-600 rounded-full font-bold text-sm hover:bg-blue-50 transition-colors">
                             Explore programs
                         </a>
-                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeGO47oHmgf5oeRQtJO_LnmT2-Zbeq2ljIrnAAk6cU73fDHFw/viewform" target="_blank" class="text-gray-900 font-bold text-sm flex items-center hover:text-blue-600 transition-colors">
+                        <a href="javascript:void(0)" onclick="openApplyModal('General Inquiry / Career Guidance')" class="text-gray-900 font-bold text-sm flex items-center hover:text-blue-600 transition-colors">
                             Book mentorship &nbsp;
                             <span class="text-lg leading-none">&rarr;</span>
                         </a>
@@ -378,53 +464,73 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-3xl font-bold text-gray-900 mb-10">Latest Programs</h2>
                 
-                <div class="flex overflow-x-auto gap-6 pb-8 snap-x carousel-track">
+                <div class="flex overflow-x-auto gap-6 pb-8 carousel-track select-none">
                     
-                    <div class="min-w-[320px] max-w-[320px] bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow snap-start flex flex-col">
+                    <div class="min-w-[320px] max-w-[320px] bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow flex flex-col shrink-0">
                         <div class="h-48 bg-blue-50 rounded-t-xl flex items-center justify-center p-6 relative overflow-hidden">
                             <span class="text-6xl absolute -bottom-4 -right-4 opacity-20">📱</span>
                             <h3 class="text-2xl font-bold text-blue-900 z-10">Digital & Verilog</h3>
                         </div>
                         <div class="p-6 flex-1 flex flex-col">
                             <h4 class="font-bold text-gray-900 mb-2">45-Day Specialized Track</h4>
-                            <p class="text-gray-600 text-sm flex-1 mb-4">Master logic gates, FSMs, and pure RTL coding with daily hands-on assignments.</p>
-                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeGO47oHmgf5oeRQtJO_LnmT2-Zbeq2ljIrnAAk6cU73fDHFw/viewform" target="_blank" class="text-blue-600 font-bold hover:underline flex items-center gap-2 text-sm">Apply now &rarr;</a>
+                            <p class="text-gray-600 text-sm flex-1 mb-6">Master logic gates, FSMs, and pure RTL coding with daily hands-on assignments.</p>
+                            <div class="flex items-center gap-4 mt-auto">
+                                <button onclick="openSyllabusModal('45day')" class="text-gray-600 font-bold hover:text-blue-600 transition-colors text-sm flex items-center gap-1 cursor-pointer">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg> Syllabus
+                                </button>
+                                <a href="javascript:void(0)" onclick="openApplyModal('45-Day Specialized Training Track')" class="text-blue-600 font-bold hover:underline flex items-center gap-1 text-sm ml-auto">Apply now &rarr;</a>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="min-w-[320px] max-w-[320px] bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow snap-start flex flex-col">
+                    <div class="min-w-[320px] max-w-[320px] bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow flex flex-col shrink-0">
                         <div class="h-48 bg-purple-50 rounded-t-xl flex items-center justify-center p-6 relative overflow-hidden">
                             <span class="text-6xl absolute -bottom-4 -right-4 opacity-20">⚙️</span>
                             <h3 class="text-2xl font-bold text-purple-900 z-10">SystemVerilog</h3>
                         </div>
                         <div class="p-6 flex-1 flex flex-col">
                             <h4 class="font-bold text-gray-900 mb-2">45-Day Specialized Track</h4>
-                            <p class="text-gray-600 text-sm flex-1 mb-4">Deep dive into OOP concepts, randomization, coverage, and layered testbenches.</p>
-                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeGO47oHmgf5oeRQtJO_LnmT2-Zbeq2ljIrnAAk6cU73fDHFw/viewform" target="_blank" class="text-blue-600 font-bold hover:underline flex items-center gap-2 text-sm">Apply now &rarr;</a>
+                            <p class="text-gray-600 text-sm flex-1 mb-6">Deep dive into OOP concepts, randomization, coverage, and layered testbenches.</p>
+                            <div class="flex items-center gap-4 mt-auto">
+                                <button onclick="openSyllabusModal('45day')" class="text-gray-600 font-bold hover:text-blue-600 transition-colors text-sm flex items-center gap-1 cursor-pointer">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg> Syllabus
+                                </button>
+                                <a href="javascript:void(0)" onclick="openApplyModal('45-Day Specialized Training Track')" class="text-blue-600 font-bold hover:underline flex items-center gap-1 text-sm ml-auto">Apply now &rarr;</a>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="min-w-[320px] max-w-[320px] bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow snap-start flex flex-col">
+                    <div class="min-w-[320px] max-w-[320px] bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow flex flex-col shrink-0">
                         <div class="h-48 bg-emerald-50 rounded-t-xl flex items-center justify-center p-6 relative overflow-hidden">
                             <span class="text-6xl absolute -bottom-4 -right-4 opacity-20">🎯</span>
                             <h3 class="text-2xl font-bold text-emerald-900 z-10">UVM Basics</h3>
                         </div>
                         <div class="p-6 flex-1 flex flex-col">
                             <h4 class="font-bold text-gray-900 mb-2">45-Day Specialized Track</h4>
-                            <p class="text-gray-600 text-sm flex-1 mb-4">Understand UVM class hierarchy, factory mechanics, phases, and TLM ports.</p>
-                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeGO47oHmgf5oeRQtJO_LnmT2-Zbeq2ljIrnAAk6cU73fDHFw/viewform" target="_blank" class="text-blue-600 font-bold hover:underline flex items-center gap-2 text-sm">Apply now &rarr;</a>
+                            <p class="text-gray-600 text-sm flex-1 mb-6">Understand UVM class hierarchy, factory mechanics, phases, and TLM ports.</p>
+                            <div class="flex items-center gap-4 mt-auto">
+                                <button onclick="openSyllabusModal('45day')" class="text-gray-600 font-bold hover:text-blue-600 transition-colors text-sm flex items-center gap-1 cursor-pointer">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg> Syllabus
+                                </button>
+                                <a href="javascript:void(0)" onclick="openApplyModal('45-Day Specialized Training Track')" class="text-blue-600 font-bold hover:underline flex items-center gap-1 text-sm ml-auto">Apply now &rarr;</a>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="min-w-[320px] max-w-[320px] bg-gray-900 rounded-xl border border-gray-800 shadow-md hover:shadow-lg transition-shadow snap-start flex flex-col">
+                    <div class="min-w-[320px] max-w-[320px] bg-gray-900 rounded-xl border border-gray-800 shadow-md hover:shadow-lg transition-shadow flex flex-col shrink-0">
                         <div class="h-48 bg-gradient-to-br from-gray-800 to-black rounded-t-xl flex items-center p-6 relative overflow-hidden">
                             <div class="absolute top-0 right-0 w-32 h-32 bg-blue-600 rounded-bl-full opacity-20"></div>
                             <h3 class="text-3xl font-bold text-white z-10">6-Month<br>Comprehensive DV</h3>
                         </div>
                         <div class="p-6 flex-1 flex flex-col">
                             <h4 class="font-bold text-gray-100 mb-2">The Ultimate Transformation</h4>
-                            <p class="text-gray-400 text-sm flex-1 mb-4">From logic gates to verifying AXI/AHB protocols. Includes mock interviews and 1:1 mentorship.</p>
-                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeGO47oHmgf5oeRQtJO_LnmT2-Zbeq2ljIrnAAk6cU73fDHFw/viewform" target="_blank" class="text-blue-400 font-bold hover:underline flex items-center gap-2 text-sm">Apply now &rarr;</a>
+                            <p class="text-gray-400 text-sm flex-1 mb-6">From logic gates to verifying AXI/AHB protocols. Includes mock interviews and 1:1 mentorship.</p>
+                            <div class="flex items-center gap-4 mt-auto">
+                                <button onclick="openSyllabusModal('6month')" class="text-gray-400 font-bold hover:text-white transition-colors text-sm flex items-center gap-1 cursor-pointer">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg> Syllabus
+                                </button>
+                                <a href="javascript:void(0)" onclick="openApplyModal('6-Month Advanced DV Training Program')" class="text-blue-400 font-bold hover:underline flex items-center gap-1 text-sm ml-auto">Apply now &rarr;</a>
+                            </div>
                         </div>
                     </div>
 
@@ -432,17 +538,66 @@
             </div>
         </section>
 
-        <section class="py-16 bg-white px-4">
+        <section class="py-24 bg-white" id="query-section">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+                <div>
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight leading-tight mb-4">
+                        Have a query?<br>Drop us a message.
+                    </h2>
+                </div>
+                <div class="w-full pt-2">
+                    <p class="text-gray-600 text-lg mb-6">
+                        Ask us anything about our programs, mentorship, or placement support:
+                    </p>
+                    <form id="queryForm" class="space-y-4">
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-4 flex items-center text-gray-400 text-lg">✉️</span>
+                            <input type="email" id="queryEmail" required placeholder="Enter your email address" class="w-full bg-gray-100 border-none rounded-full py-4 pl-12 pr-6 focus:ring-2 focus:ring-blue-600 outline-none transition-all placeholder-gray-500 text-gray-900">
+                        </div>
+                        <div id="expandableFields" class="hidden opacity-0 transition-opacity duration-300 space-y-4 pt-2">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <input type="text" id="queryFirstName" required placeholder="First name" class="w-full bg-gray-100 border-none rounded-full py-4 px-6 focus:ring-2 focus:ring-blue-600 outline-none transition-all placeholder-gray-500 text-gray-900">
+                                <input type="text" id="queryLastName" placeholder="Last name" class="w-full bg-gray-100 border-none rounded-full py-4 px-6 focus:ring-2 focus:ring-blue-600 outline-none transition-all placeholder-gray-500 text-gray-900">
+                            </div>
+                            <div class="relative">
+                                <select id="queryCountry" required class="w-full bg-gray-100 border-none rounded-full py-4 px-6 focus:ring-2 focus:ring-blue-600 outline-none transition-all text-gray-900 appearance-none">
+                                    <option value="" disabled selected>Select your country</option>
+                                    <option value="India">India</option>
+                                    <option value="United States">United States</option>
+                                    <option value="United Kingdom">United Kingdom</option>
+                                    <option value="Canada">Canada</option>
+                                    <option value="Australia">Australia</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-6 flex items-center text-gray-500">
+                                    <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                </div>
+                            </div>
+                            <textarea id="queryText" required placeholder="Type your question here..." rows="3" class="w-full bg-gray-100 border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-blue-600 outline-none transition-all resize-none placeholder-gray-500 text-gray-900"></textarea>
+                            <div class="flex items-start gap-3 mt-4 text-xs text-gray-500 leading-relaxed">
+                                <input type="checkbox" id="queryTerms" required class="mt-1 w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 cursor-pointer">
+                                <label for="queryTerms">By submitting, you agree to be contacted by LogicSilicon. Your information will be securely stored in our query database.</label>
+                            </div>
+                            <button type="submit" class="bg-blue-600 text-white px-8 py-3.5 rounded-full font-bold hover:bg-blue-700 transition-colors mt-6 shadow-md hover:shadow-lg w-full sm:w-auto">
+                                Submit query
+                            </button>
+                        </div>
+                    </form>
+                    <div id="queryFormResponse" class="hidden mt-4 text-sm font-bold"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pb-16 bg-white px-4">
             <div class="max-w-5xl mx-auto bg-blue-900 rounded-3xl overflow-hidden relative shadow-2xl">
                 <div class="absolute top-0 right-0 w-1/2 h-full bg-blue-600 transform origin-bottom-left -skew-x-12 translate-x-20"></div>
-                
                 <div class="relative p-12 md:p-20 z-10">
                     <h2 class="text-4xl font-bold text-white mb-4">Get started</h2>
                     <p class="text-xl text-blue-100 mb-8 max-w-lg">
                         Instant access to the power of SystemVerilog and UVM. Build your verification environment today.
                     </p>
                     <div class="flex gap-4">
-                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeGO47oHmgf5oeRQtJO_LnmT2-Zbeq2ljIrnAAk6cU73fDHFw/viewform" target="_blank" class="px-8 py-3 bg-white text-blue-900 font-bold rounded-full hover:bg-gray-100 transition-colors">
+                        <a href="javascript:void(0)" onclick="openApplyModal('6-Month Advanced DV Training Program')" class="px-8 py-3 bg-white text-blue-900 font-bold rounded-full hover:bg-gray-100 transition-colors shadow-sm">
                             Apply Now
                         </a>
                         <a href="#programs" class="px-8 py-3 bg-transparent text-white font-bold flex items-center gap-2 hover:bg-white/10 rounded-full transition-colors">
@@ -457,16 +612,13 @@
 
     <footer class="bg-gray-50 pt-16 pb-8 border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
             <div class="flex flex-col lg:flex-row justify-between mb-16 gap-12 lg:gap-8">
-                
                 <div class="flex items-start gap-3 w-full lg:w-1/4">
                     <div class="w-8 h-8 bg-slate-800 dark:bg-blue-600 text-white rounded flex items-center justify-center font-bold text-lg shadow-lg border-b-4 border-amber-600 dark:border-amber-800">
                         LS
                     </div> 
                     <span class="font-bold text-2xl text-gray-800 tracking-tight">LogicSilicon</span>
                 </div>
-                
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-8 w-full lg:w-3/4">
                     <div>
                         <h5 class="font-bold text-gray-900 mb-5">About LogicSilicon</h5>
@@ -504,27 +656,16 @@
 
             <div class="flex items-center gap-6 mb-8 text-gray-700">
                 <a href="https://www.youtube.com/@logicsilicon-in" target="_blank" aria-label="YouTube" class="hover:text-black transition-colors">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                    </svg>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                 </a>
-                
                 <a href="https://www.linkedin.com/company/logicsilicon/" target="_blank" aria-label="LinkedIn" class="hover:text-black transition-colors">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                    </svg>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                 </a>
-
                 <a href="https://www.instagram.com/logicsilicon.in/" target="_blank" aria-label="Instagram" class="hover:text-black transition-colors">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                    </svg>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                 </a>
-                
                 <a href="mailto:akashbagwan@logicsilicon.in" aria-label="Email" class="hover:text-black transition-colors">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M2 5.5A2.5 2.5 0 0 1 4.5 3h15A2.5 2.5 0 0 1 22 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 18.5v-13zM4.5 4.5a1 1 0 0 0-1 1v.707l8.146 5.82a.75.75 0 0 0 .708 0L20.5 6.207V5.5a1 1 0 0 0-1-1h-15zM3 7.854v10.646a1 1 0 0 0 1 1h15a1 1 0 0 0 1-1V7.854l-7.793 5.566a2.25 2.25 0 0 1-2.414 0L3 7.854z"/>
-                    </svg>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M2 5.5A2.5 2.5 0 0 1 4.5 3h15A2.5 2.5 0 0 1 22 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 18.5v-13zM4.5 4.5a1 1 0 0 0-1 1v.707l8.146 5.82a.75.75 0 0 0 .708 0L20.5 6.207V5.5a1 1 0 0 0-1-1h-15zM3 7.854v10.646a1 1 0 0 0 1 1h15a1 1 0 0 0 1-1V7.854l-7.793 5.566a2.25 2.25 0 0 1-2.414 0L3 7.854z"/></svg>
                 </a>
             </div>
 
@@ -539,21 +680,536 @@
         </div>
     </footer>
 
+    <div id="applyModal" class="fixed inset-0 z-[110] hidden items-center justify-center p-4 sm:p-6" aria-labelledby="applyModalTitle" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm transition-opacity" aria-hidden="true" onclick="closeApplyModal()"></div>
+        
+        <div id="applyPanel" class="bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col relative z-10 modal-enter overflow-hidden mx-4">
+            <div class="flex justify-between items-center p-6 border-b border-gray-100 bg-gray-50/50 rounded-t-3xl shrink-0">
+                <h2 class="text-2xl font-bold text-gray-900" id="applyModalTitle">Submit your Application</h2>
+                <button onclick="closeApplyModal()" class="text-gray-400 hover:text-gray-800 text-2xl font-bold w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200 transition-colors bg-white border border-gray-200 shadow-sm">&times;</button>
+            </div>
+            
+            <div class="p-6 md:p-8 overflow-y-auto flex-grow custom-scrollbar">
+                <form id="applyForm" class="space-y-6">
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Full Name <span class="text-red-500">*</span></label>
+                            <input type="text" id="applyName" required placeholder="John Doe" class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 focus:ring-2 focus:ring-blue-600 focus:bg-white outline-none transition-all placeholder-gray-400 text-gray-900">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Email Address <span class="text-red-500">*</span></label>
+                            <input type="email" id="applyEmail" required placeholder="john@example.com" class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 focus:ring-2 focus:ring-blue-600 focus:bg-white outline-none transition-all placeholder-gray-400 text-gray-900">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">WhatsApp / Contact <span class="text-red-500">*</span></label>
+                            <input type="tel" id="applyPhone" required placeholder="+91 9876543210" class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 focus:ring-2 focus:ring-blue-600 focus:bg-white outline-none transition-all placeholder-gray-400 text-gray-900">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Current Location <span class="text-red-500">*</span></label>
+                            <input type="text" id="applyLocation" required placeholder="City, State" class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 focus:ring-2 focus:ring-blue-600 focus:bg-white outline-none transition-all placeholder-gray-400 text-gray-900">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">College / University Name <span class="text-red-500">*</span></label>
+                            <input type="text" id="applyCollege" required placeholder="Enter university name" class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 focus:ring-2 focus:ring-blue-600 focus:bg-white outline-none transition-all placeholder-gray-400 text-gray-900">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Year of Graduation (or Expected) <span class="text-red-500">*</span></label>
+                            <input type="text" id="applyGradYear" required placeholder="e.g. 2024" class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 focus:ring-2 focus:ring-blue-600 focus:bg-white outline-none transition-all placeholder-gray-400 text-gray-900">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Current Status <span class="text-red-500">*</span></label>
+                            <div class="relative">
+                                <select id="applyStatus" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 focus:ring-2 focus:ring-blue-600 focus:bg-white outline-none transition-all text-gray-900 appearance-none">
+                                    <option value="" disabled selected>Select your current status</option>
+                                    <option value="Pursuing B.Tech / B.E.">Pursuing B.Tech / B.E.</option>
+                                    <option value="Pursuing M.Tech / M.E.">Pursuing M.Tech / M.E.</option>
+                                    <option value="Recent Graduate (Looking for Job)">Recent Graduate</option>
+                                    <option value="Working Professional (Looking for Domain Change/Upskilling)">Working Professional</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center text-gray-500">
+                                    <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Country <span class="text-red-500">*</span></label>
+                            <div class="relative">
+                                <select id="applyCountry" required class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 focus:ring-2 focus:ring-blue-600 focus:bg-white outline-none transition-all text-gray-900 appearance-none">
+                                    <option value="" disabled selected>Select your country</option>
+                                    <option value="India">India</option>
+                                    <option value="United States">United States</option>
+                                    <option value="United Kingdom">United Kingdom</option>
+                                    <option value="Canada">Canada</option>
+                                    <option value="Australia">Australia</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center text-gray-500">
+                                    <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Which program are you interested in? <span class="text-red-500">*</span></label>
+                            <div class="relative">
+                                <select id="applyProgram" required class="w-full bg-blue-50 border border-blue-200 rounded-xl py-3 px-4 focus:ring-2 focus:ring-blue-600 focus:bg-white outline-none transition-all text-blue-900 font-medium appearance-none">
+                                    <option value="" disabled selected>Select a program</option>
+                                    <option value="45-Day Specialized Training Track">45-Day Specialized Training Track</option>
+                                    <option value="6-Month Advanced DV Training Program">6-Month Advanced DV Training Program</option>
+                                    <option value="1:1 Dedicated Mentorship Session">1:1 Dedicated Mentorship Session</option>
+                                    <option value="General Inquiry / Career Guidance">General Inquiry / Career Guidance</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center text-blue-600">
+                                    <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 mt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div id="applyFormResponse" class="text-sm font-bold hidden w-full sm:w-auto"></div>
+                        <button type="submit" class="w-full sm:w-auto px-8 py-3.5 bg-blue-600 text-white rounded-full font-bold hover:bg-blue-700 transition-colors shadow-md ml-auto text-lg">
+                            Submit Application &rarr;
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="syllabusModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6" aria-labelledby="modalTitle" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm transition-opacity" aria-hidden="true" onclick="closeSyllabusModal()"></div>
+        
+        <div id="syllabusPanel" class="bg-white rounded-3xl shadow-2xl w-full max-w-5xl max-h-[90vh] flex flex-col relative z-10 modal-enter">
+            <div class="flex justify-between items-center p-6 border-b border-gray-100 bg-gray-50/50 rounded-t-3xl">
+                <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-3" id="modalTitle">
+                    Course Syllabus
+                </h2>
+                <button onclick="closeSyllabusModal()" class="text-gray-400 hover:text-gray-800 text-2xl font-bold w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200 transition-colors bg-white border border-gray-200 shadow-sm">&times;</button>
+            </div>
+            
+            <div class="p-6 md:p-8 overflow-y-auto flex-grow custom-scrollbar" id="modalBody">
+                </div>
+            
+            <div class="p-6 border-t border-gray-100 bg-gray-50/50 rounded-b-3xl flex justify-end gap-4">
+                <button onclick="closeSyllabusModal()" class="px-6 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-full font-bold hover:bg-gray-50 transition-colors shadow-sm text-sm">
+                    Close
+                </button>
+                <a href="javascript:void(0)" id="syllabusApplyBtn" onclick="closeSyllabusModal(); openApplyModal('')" class="px-8 py-2.5 bg-blue-600 text-white rounded-full font-bold hover:bg-blue-700 transition-colors shadow-md text-sm flex items-center gap-2">
+                    Apply Now &rarr;
+                </a>
+            </div>
+        </div>
+    </div>
+
     <script>
         function switchTab(tabId) {
-            // Hide all tab contents
-            document.querySelectorAll('.tab-content').forEach(el => {
-                el.classList.add('hidden');
-            });
-            // Show target tab
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.getElementById('tab-' + tabId).classList.remove('hidden');
-
-            // Remove active class from all buttons
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            // Add active class to clicked button
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
+        }
+
+        /* Modal Application Form */
+        const applyModal = document.getElementById('applyModal');
+        const applyPanel = document.getElementById('applyPanel');
+
+        function openApplyModal(programName) {
+            const programSelect = document.getElementById('applyProgram');
+            if(programName) {
+                for(let i=0; i<programSelect.options.length; i++) {
+                    if(programSelect.options[i].value === programName) {
+                        programSelect.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+            applyModal.classList.remove('hidden');
+            applyModal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+
+            requestAnimationFrame(() => {
+                applyPanel.classList.remove('modal-enter');
+                applyPanel.classList.add('modal-enter-active');
+            });
+        }
+
+        function closeApplyModal() {
+            applyPanel.classList.remove('modal-enter-active');
+            applyPanel.classList.add('modal-leave-active');
+
+            setTimeout(() => {
+                applyModal.classList.add('hidden');
+                applyModal.classList.remove('flex');
+                applyPanel.classList.remove('modal-leave-active');
+                applyPanel.classList.add('modal-enter');
+                document.body.style.overflow = '';
+                document.getElementById('applyFormResponse').classList.add('hidden');
+            }, 200);
+        }
+
+        /* Submit Logic to Google Sheets */
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzNrxA2WyqOZFNjB7DNMTE4ZwAJT1myCpTEUhLg8UxD0yh26s9O5GSG3LEvbx8Y4m8T/exec';
+
+        // 1. General Query Form
+        const emailInput = document.getElementById('queryEmail');
+        const expandableFields = document.getElementById('expandableFields');
+
+        emailInput.addEventListener('focus', function() {
+            if (expandableFields.classList.contains('hidden')) {
+                expandableFields.classList.remove('hidden');
+                setTimeout(() => {
+                    expandableFields.classList.remove('opacity-0');
+                    expandableFields.classList.add('opacity-100');
+                }, 10);
+            }
+        });
+
+        document.getElementById('queryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button[type="submit"]');
+            const responseDiv = document.getElementById('queryFormResponse');
+            const country = document.getElementById('queryCountry').value;
+            
+            if(country !== 'India') {
+                responseDiv.textContent = 'Currently, we only accept queries from India.';
+                responseDiv.classList.remove('hidden', 'text-green-600');
+                responseDiv.classList.add('text-red-600', 'block');
+                setTimeout(() => responseDiv.classList.add('hidden'), 4000);
+                return;
+            }
+
+            btn.textContent = 'Submitting...';
+            btn.disabled = true;
+            btn.classList.add('opacity-70', 'cursor-not-allowed');
+
+            const formData = {
+                formType: 'query', 
+                email: document.getElementById('queryEmail').value,
+                firstName: document.getElementById('queryFirstName').value,
+                lastName: document.getElementById('queryLastName').value,
+                country: country,
+                query: document.getElementById('queryText').value,
+                timestamp: new Date().toISOString()
+            };
+            
+            submitToGoogle(formData, btn, responseDiv, this, () => {
+                expandableFields.classList.remove('opacity-100');
+                expandableFields.classList.add('opacity-0');
+                setTimeout(() => expandableFields.classList.add('hidden'), 300);
+            });
+        });
+
+        // 2. Application Form (Modal)
+        document.getElementById('applyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button[type="submit"]');
+            const responseDiv = document.getElementById('applyFormResponse');
+            const country = document.getElementById('applyCountry').value;
+            
+            if(country !== 'India') {
+                responseDiv.textContent = 'Currently, we only accept applications from India.';
+                responseDiv.classList.remove('hidden', 'text-green-600');
+                responseDiv.classList.add('text-red-600', 'block');
+                setTimeout(() => responseDiv.classList.add('hidden'), 4000);
+                return;
+            }
+
+            btn.textContent = 'Submitting...';
+            btn.disabled = true;
+            btn.classList.add('opacity-70', 'cursor-not-allowed');
+
+            const formData = {
+                formType: 'apply',
+                fullName: document.getElementById('applyName').value,
+                email: document.getElementById('applyEmail').value,
+                phone: document.getElementById('applyPhone').value,
+                location: document.getElementById('applyLocation').value,
+                status: document.getElementById('applyStatus').value,
+                college: document.getElementById('applyCollege').value,
+                gradYear: document.getElementById('applyGradYear').value,
+                program: document.getElementById('applyProgram').value,
+                country: country,
+                timestamp: new Date().toISOString()
+            };
+            
+            submitToGoogle(formData, btn, responseDiv, this, () => {
+                setTimeout(closeApplyModal, 2000);
+            });
+        });
+
+        function submitToGoogle(formData, btn, responseDiv, formElement, onSuccessCallback) {
+            fetch(scriptURL, { 
+                method: 'POST', 
+                body: JSON.stringify(formData),
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.result === 'success') {
+                    responseDiv.textContent = 'Success! Your information has been securely received.';
+                    responseDiv.classList.remove('hidden', 'text-red-600');
+                    responseDiv.classList.add('text-green-600', 'block');
+                    formElement.reset();
+                    if(onSuccessCallback) onSuccessCallback();
+                } else {
+                    throw new Error(data.message || 'Unknown error');
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                responseDiv.textContent = 'Something went wrong. Please try again later.';
+                responseDiv.classList.remove('hidden', 'text-green-600');
+                responseDiv.classList.add('text-red-600', 'block');
+            })
+            .finally(() => {
+                btn.textContent = formElement.id === 'applyForm' ? 'Submit Application \u2192' : 'Submit query';
+                btn.disabled = false;
+                btn.classList.remove('opacity-70', 'cursor-not-allowed');
+                setTimeout(() => responseDiv.classList.add('hidden'), 5000);
+            });
+        }
+        
+        /* Carousel Auto-Scroll */
+        const carousel = document.querySelector('.carousel-track');
+        let isDown = false;
+        let scrollInterval;
+
+        function startAutoScroll() {
+            if(scrollInterval) clearInterval(scrollInterval);
+            scrollInterval = setInterval(() => {
+                if (!isDown && carousel) {
+                    carousel.scrollLeft += 1;
+                    if (Math.ceil(carousel.scrollLeft) >= (carousel.scrollWidth - carousel.clientWidth)) {
+                        carousel.scrollLeft = 0;
+                    }
+                }
+            }, 25);
+        }
+
+        if(carousel) {
+            let startX;
+            let scrollLeft;
+            carousel.addEventListener('mousedown', (e) => {
+                isDown = true;
+                carousel.classList.add('cursor-grabbing');
+                startX = e.pageX - carousel.offsetLeft;
+                scrollLeft = carousel.scrollLeft;
+                clearInterval(scrollInterval);
+            });
+            carousel.addEventListener('mouseleave', () => {
+                isDown = false;
+                carousel.classList.remove('cursor-grabbing');
+                startAutoScroll();
+            });
+            carousel.addEventListener('mouseup', () => {
+                isDown = false;
+                carousel.classList.remove('cursor-grabbing');
+                startAutoScroll();
+            });
+            carousel.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - carousel.offsetLeft;
+                const walk = (x - startX) * 2; 
+                carousel.scrollLeft = scrollLeft - walk;
+            });
+            carousel.addEventListener('mouseenter', () => clearInterval(scrollInterval));
+            startAutoScroll();
+        }
+
+        /* Syllabus Modal Data Logic */
+        const syllabusData = {
+            '45day': {
+                title: "45-Day Specialized Tracks",
+                applyProgramName: "45-Day Specialized Training Track",
+                html: `
+                    <p class="text-gray-600 bg-blue-50 border-l-4 border-blue-500 p-4 mb-8 rounded-r-lg">
+                        Select one of the following tracks for an intensive 45-day learning journey. Each track includes daily live lectures, coding assignments, and a mini-project.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                            <div class="text-3xl mb-3">🔋</div>
+                            <h4 class="text-lg font-bold text-gray-900 mb-4 pb-2 border-b border-gray-200">Track 1: Digital Electronics</h4>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Number Systems & Boolean Algebra</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> K-Map Minimization Techniques</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Combinational Circuits (Adders, MUX, Decoders)</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Sequential Circuits (Flip-Flops, Registers)</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Counters & Shift Registers</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Finite State Machines (Mealy & Moore)</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Basic Timing Analysis (Setup/Hold)</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Logic Families & Memory Basics</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                            <div class="text-3xl mb-3">💻</div>
+                            <h4 class="text-lg font-bold text-gray-900 mb-4 pb-2 border-b border-gray-200">Track 2: Verilog HDL</h4>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-purple-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Introduction to HDL & Abstraction Levels</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-purple-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Verilog Data Types & Operators</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-purple-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Gate-Level & Dataflow Modeling</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-purple-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Behavioral Modeling (always, initial blocks)</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-purple-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Blocking vs Non-Blocking Assignments</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-purple-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> FSM Design & Coding in Verilog</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-purple-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Writing Robust Testbenches</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-purple-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Synthesis Fundamentals & Guidelines</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                            <div class="text-3xl mb-3">🔧</div>
+                            <h4 class="text-lg font-bold text-gray-900 mb-4 pb-2 border-b border-gray-200">Track 3: SystemVerilog (SV)</h4>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> SV Data Types (Arrays, Queues, Structs)</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Object-Oriented Programming (Classes)</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Inheritance, Polymorphism & Virtual Methods</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Inter-Process Comm (Mailboxes, Semaphores)</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Constrained Randomization</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Functional Coverage Configuration</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> SV Interfaces, Modports & Clocking Blocks</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Building a Layered Testbench Architecture</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                            <div class="text-3xl mb-3">🎯</div>
+                            <h4 class="text-lg font-bold text-gray-900 mb-4 pb-2 border-b border-gray-200">Track 4: UVM Basics</h4>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-orange-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Need for UVM & Methodology Basics</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-orange-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> UVM Class Hierarchy (Objects vs Components)</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-orange-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> UVM Phases & Factory Mechanics</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-orange-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> UVM Reporting Features</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-orange-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> TLM (Transaction Level Modeling) Ports</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-orange-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Building UVM Agents (Driver, Monitor, Sequencer)</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-orange-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> UVM Sequences and Sequence Items</li>
+                                <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-orange-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Connecting the UVM Environment</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            },
+            '6month': {
+                title: "6-Month Comprehensive DV Program",
+                applyProgramName: "6-Month Advanced DV Training Program",
+                html: `
+                    <p class="text-gray-600 italic font-medium leading-relaxed mb-8 bg-gray-50 p-4 rounded-xl border border-gray-200">
+                        The 6-Month program is a complete transformation journey. You start with foundational digital gates and graduate by verifying complex industry-standard protocols using the Universal Verification Methodology (UVM). 
+                    </p>
+                    <div class="relative border-l-2 border-gray-200 ml-3 md:ml-6 space-y-10 pb-4">
+                        <div class="relative pl-6 md:pl-8">
+                            <div class="absolute w-4 h-4 bg-blue-600 rounded-full -left-[9px] top-1.5 border-2 border-white shadow"></div>
+                            <h4 class="text-xl font-bold text-gray-900 mb-1">Month 1: Digital Electronics & Verilog Fundamentals</h4>
+                            <p class="text-gray-500 font-medium mb-3 text-sm">Mastering the hardware mindset.</p>
+                            <ul class="list-disc pl-5 text-gray-700 space-y-1 text-sm">
+                                <li>Logic gates, K-Maps, Combinational & Sequential circuits.</li>
+                                <li>Verilog syntax, Data types, Operators.</li>
+                                <li>Gate-level, Dataflow, and Behavioral modeling.</li>
+                                <li>Daily hands-on coding assignments on basic blocks.</li>
+                            </ul>
+                        </div>
+                        <div class="relative pl-6 md:pl-8">
+                            <div class="absolute w-4 h-4 bg-purple-600 rounded-full -left-[9px] top-1.5 border-2 border-white shadow"></div>
+                            <h4 class="text-xl font-bold text-gray-900 mb-1">Month 2: Advanced Verilog & Mini Projects</h4>
+                            <p class="text-gray-500 font-medium mb-3 text-sm">Architecting complex digital structures.</p>
+                            <ul class="list-disc pl-5 text-gray-700 space-y-1 text-sm">
+                                <li>Advanced FSM design (Mealy/Moore variations).</li>
+                                <li>Memory modeling (RAM, ROM, Synchronous/Asynchronous FIFOs).</li>
+                                <li>Writing robust Verilog testbenches.</li>
+                                <li><strong>Project:</strong> RTL Design and testing of a parameterized Async FIFO.</li>
+                            </ul>
+                        </div>
+                        <div class="relative pl-6 md:pl-8">
+                            <div class="absolute w-4 h-4 bg-emerald-600 rounded-full -left-[9px] top-1.5 border-2 border-white shadow"></div>
+                            <h4 class="text-xl font-bold text-gray-900 mb-1">Month 3: SystemVerilog Core & OOP Concepts</h4>
+                            <p class="text-gray-500 font-medium mb-3 text-sm">Transitioning to dynamic verification languages.</p>
+                            <ul class="list-disc pl-5 text-gray-700 space-y-1 text-sm">
+                                <li>Advanced Data Types (Queues, Associative Arrays).</li>
+                                <li>Object-Oriented Programming (Classes, Handles, Garbage Collection).</li>
+                                <li>Inheritance, Polymorphism, and Virtual methods.</li>
+                                <li>Inter-Process Communication (Mailboxes, Events, Semaphores).</li>
+                            </ul>
+                        </div>
+                        <div class="relative pl-6 md:pl-8">
+                            <div class="absolute w-4 h-4 bg-yellow-500 rounded-full -left-[9px] top-1.5 border-2 border-white shadow"></div>
+                            <h4 class="text-xl font-bold text-gray-900 mb-1">Month 4: SV Randomization, Coverage & Interfaces</h4>
+                            <p class="text-gray-500 font-medium mb-3 text-sm">Building a layered testbench.</p>
+                            <ul class="list-disc pl-5 text-gray-700 space-y-1 text-sm">
+                                <li>Constrained random generation (rand, randc, constraints blocks).</li>
+                                <li>Functional Coverage (Covergroups, Coverpoints, Bins).</li>
+                                <li>SystemVerilog Assertions (SVA) basics.</li>
+                                <li>Interfaces, Modports, Clocking blocks.</li>
+                                <li><strong>Project:</strong> Complete Layered SV Testbench for an I2C Memory.</li>
+                            </ul>
+                        </div>
+                        <div class="relative pl-6 md:pl-8">
+                            <div class="absolute w-4 h-4 bg-orange-500 rounded-full -left-[9px] top-1.5 border-2 border-white shadow"></div>
+                            <h4 class="text-xl font-bold text-gray-900 mb-1">Month 5: UVM Architecture & Components</h4>
+                            <p class="text-gray-500 font-medium mb-3 text-sm">Adopting the industry standard methodology.</p>
+                            <ul class="list-disc pl-5 text-gray-700 space-y-1 text-sm">
+                                <li>UVM Class hierarchy and Factory overrides.</li>
+                                <li>UVM Phases (Build, Connect, Run, etc.).</li>
+                                <li>TLM Ports and connection mechanics.</li>
+                                <li>Developing UVM Components (Driver, Monitor, Sequencer, Scoreboard).</li>
+                                <li>UVM Sequences and Macros.</li>
+                            </ul>
+                        </div>
+                        <div class="relative pl-6 md:pl-8">
+                            <div class="absolute w-5 h-5 bg-red-600 rounded-full -left-[11px] top-1.5 border-2 border-white shadow animate-pulse"></div>
+                            <h4 class="text-xl font-bold text-gray-900 mb-1">Month 6: Live Protocol Projects & Placement Drive</h4>
+                            <p class="text-gray-500 font-medium mb-3 text-sm">Becoming interview-ready.</p>
+                            <ul class="list-disc pl-5 text-gray-700 space-y-1 text-sm">
+                                <li><strong>Major Project 1:</strong> UVM Verification of AMBA APB Protocol.</li>
+                                <li><strong>Major Project 2:</strong> UVM Verification of AMBA AHB/AXI (Subset).</li>
+                                <li>Resume building and optimization for ATS scanners.</li>
+                                <li>1:1 Technical Mock Interviews with feedback.</li>
+                                <li>HR round preparation and placement assistance.</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        const syllabusModal = document.getElementById('syllabusModal');
+        const syllabusPanel = document.getElementById('syllabusPanel');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        const syllabusApplyBtn = document.getElementById('syllabusApplyBtn');
+
+        function openSyllabusModal(type) {
+            modalTitle.innerHTML = syllabusData[type].title + " <span class='font-normal text-gray-400 text-lg ml-2 hidden sm:inline'>| Curriculum Outline</span>";
+            modalBody.innerHTML = syllabusData[type].html;
+            
+            syllabusApplyBtn.onclick = function() {
+                closeSyllabusModal();
+                setTimeout(() => openApplyModal(syllabusData[type].applyProgramName), 200);
+            };
+            
+            syllabusModal.classList.remove('hidden');
+            syllabusModal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+
+            requestAnimationFrame(() => {
+                syllabusPanel.classList.remove('modal-enter');
+                syllabusPanel.classList.add('modal-enter-active');
+            });
+        }
+
+        function closeSyllabusModal() {
+            syllabusPanel.classList.remove('modal-enter-active');
+            syllabusPanel.classList.add('modal-leave-active');
+
+            setTimeout(() => {
+                syllabusModal.classList.add('hidden');
+                syllabusModal.classList.remove('flex');
+                syllabusPanel.classList.remove('modal-leave-active');
+                syllabusPanel.classList.add('modal-enter');
+                document.body.style.overflow = '';
+            }, 200);
         }
     </script>
 </body>
