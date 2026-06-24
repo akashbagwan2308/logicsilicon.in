@@ -101,11 +101,61 @@
             transform: scale(0.95);
             transition: opacity 200ms ease-in, transform 200ms ease-in;
         }
+
+        /* A4 Page Setup */
+        .a4-page {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            margin: 0 auto 40px auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            position: relative;
+            box-sizing: border-box;
+            height: auto;
+            overflow: visible;
+            page-break-after: always;
+        }
+
+        .a4-page:last-child {
+            margin-bottom: 0;
+            page-break-after: auto;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+
+            /* Hides web-only elements (navbars, floating buttons) during print */
+            .no-print {
+                display: none !important;
+            }
+
+            .a4-page {
+                margin: 0;
+                box-shadow: none;
+                width: 210mm;
+                min-height: 297mm;
+                height: auto;
+                overflow: visible;
+                page-break-after: always;
+            }
+
+            .a4-page:last-child {
+                page-break-after: auto;
+            }
+        }
     </style>
 </head>
 <body class="bg-white antialiased selection:bg-blue-200 selection:text-blue-900">
 
-    <header class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 transition-all duration-300">
+    <header class="no-print fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center gap-3 cursor-pointer">
@@ -115,6 +165,24 @@
                     <span class="font-bold text-xl text-gray-800 tracking-tight">LogicSilicon</span>
                 </div>
                 <nav class="hidden md:flex space-x-8 items-center">
+                    
+                    <div class="relative group py-4">
+                        <button class="flex items-center gap-1 text-gray-600 hover:text-blue-600 font-medium text-sm transition-colors outline-none focus:outline-none">
+                            Brochure
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                        </button>
+                        <div class="absolute left-0 top-12 mt-1 w-48 bg-white border border-gray-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 overflow-hidden">
+                            <a href="Brochure.html" target="_blank" class="flex items-center gap-2 px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
+                                View Web Version
+                            </a>
+                            <a href="Brochure.pdf" target="_blank" download class="flex items-center gap-2 px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                                Download PDF
+                            </a>
+                        </div>
+                    </div>
+
                     <a href="#features" class="text-gray-600 hover:text-blue-600 font-medium text-sm transition-colors">Why Us</a>
                     <a href="#ecosystem" class="text-gray-600 hover:text-blue-600 font-medium text-sm transition-colors">Ecosystem</a>
                     <a href="#programs" class="text-gray-600 hover:text-blue-600 font-medium text-sm transition-colors">Programs</a>
@@ -125,6 +193,11 @@
             </div>
         </div>
     </header>
+
+    <a href="Brochure.pdf" download class="no-print fixed bottom-6 right-6 bg-[#0553B1] text-white p-4 rounded-full shadow-2xl hover:bg-blue-700 hover:-translate-y-1 transition-all duration-300 z-[100] flex items-center justify-center group overflow-hidden border-2 border-white/20">
+        <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+        <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs group-hover:ml-2 transition-all duration-300 font-bold text-sm">Download Brochure</span>
+    </a>
 
     <main>
         <section class="hero-gradient pt-32 pb-24 overflow-hidden relative">
@@ -465,6 +538,20 @@
                 <h2 class="text-4xl font-bold text-gray-900 mb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">Latest Programs</h2>
                 
                 <div class="flex gap-6 py-4 pb-8 carousel-track cursor-grab w-full px-4 sm:px-6 lg:px-8">
+
+		    <div class="min-w-[280px] w-[280px] md:min-w-[320px] md:w-[320px] aspect-square bg-slate-900 rounded-3xl shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col shrink-0 overflow-hidden border border-slate-800">
+                        <div class="h-2/5 bg-gradient-to-br from-slate-800 to-black flex items-center justify-center p-6 relative border-b border-slate-800">
+                            <h3 class="text-3xl font-bold text-white z-10 text-center leading-tight">6-Month<br>DV Program</h3>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col bg-slate-900">
+                            <h4 class="font-bold text-white mb-2">The Ultimate Transformation</h4>
+                            <p class="text-slate-400 text-sm flex-1 mb-4 leading-relaxed">From logic gates to AXI protocols. Includes mock interviews & 1:1 mentorship.</p>
+                            <div class="flex items-center mt-auto justify-between border-t border-slate-800 pt-4">
+                                <button onclick="openSyllabusModal('6month')" class="text-slate-400 font-bold hover:text-white transition-colors text-xs">Syllabus</button>
+                                <a href="javascript:void(0)" onclick="openApplyModal('6-Month Advanced DV Training Program')" class="text-blue-400 font-bold hover:text-blue-300 flex items-center text-xs">Apply &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
                     
                     <div class="min-w-[280px] w-[280px] md:min-w-[320px] md:w-[320px] aspect-square bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col shrink-0 overflow-hidden border border-gray-100">
                         <div class="h-2/5 bg-[#F4F8FF] flex items-center justify-center p-6 relative">
@@ -556,20 +643,20 @@
                         </div>
                     </div>
 
-                    <div class="min-w-[280px] w-[280px] md:min-w-[320px] md:w-[320px] aspect-square bg-slate-900 rounded-3xl shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col shrink-0 overflow-hidden border border-slate-800">
-                        <div class="h-2/5 bg-gradient-to-br from-slate-800 to-black flex items-center justify-center p-6 relative border-b border-slate-800">
-                            <h3 class="text-3xl font-bold text-white z-10 text-center leading-tight">6-Month<br>DV Program</h3>
+                    <div class="min-w-[280px] w-[280px] md:min-w-[320px] md:w-[320px] aspect-square bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col shrink-0 overflow-hidden border border-gray-100">
+                        <div class="h-2/5 bg-[#F0FDF4] flex items-center justify-center p-6 relative">
+                            <span class="text-5xl opacity-40 z-0">🎓</span>
+                            <h3 class="text-2xl font-bold text-[#065F46] z-10 text-center ml-2">1:1 Career Guidance</h3>
                         </div>
-                        <div class="p-6 flex-1 flex flex-col bg-slate-900">
-                            <h4 class="font-bold text-white mb-2">The Ultimate Transformation</h4>
-                            <p class="text-slate-400 text-sm flex-1 mb-4 leading-relaxed">From logic gates to AXI protocols. Includes mock interviews & 1:1 mentorship.</p>
-                            <div class="flex items-center mt-auto justify-between border-t border-slate-800 pt-4">
-                                <button onclick="openSyllabusModal('6month')" class="text-slate-400 font-bold hover:text-white transition-colors text-xs">Syllabus</button>
-                                <a href="javascript:void(0)" onclick="openApplyModal('6-Month Advanced DV Training Program')" class="text-blue-400 font-bold hover:text-blue-300 flex items-center text-xs">Apply &rarr;</a>
+                        <div class="p-6 flex-1 flex flex-col bg-white">
+                            <h4 class="font-bold text-gray-900 mb-2">Personalized Career Consultation</h4>
+                            <p class="text-gray-600 text-sm flex-1 mb-4 leading-relaxed">Focused on roadmap, skill development, and long-term career growth.</p>
+                            <div class="flex items-center mt-auto justify-between border-t border-gray-50 pt-4">
+                                <span class="text-gray-400 font-medium text-xs">Virtual Counselling</span>
+                                <a href="javascript:void(0)" onclick="openApplyModal('General Inquiry / Career Guidance')" class="text-red-600 font-bold hover:underline flex items-center text-xs">Apply &rarr;</a>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
