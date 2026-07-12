@@ -162,6 +162,11 @@
                 page-break-after: auto;
             }
         }
+
+        /* IDE Showcase Image Transitions */
+        .ide-img {
+            transition: opacity 0.5s ease-in-out;
+        }
     </style>
 </head>
 <body class="bg-white antialiased selection:bg-blue-200 selection:text-blue-900">
@@ -387,6 +392,87 @@
 
             </div>
         </section>
+
+        <!-- ==========================================
+             START: DYNAMIC IDE SHOWCASE SECTION
+        =========================================== -->
+        <section class="py-16 md:py-24 bg-gray-50 border-y border-gray-200 relative overflow-hidden" id="ide-showcase">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                
+                <!-- Section Header -->
+                <div class="text-center mb-12 md:mb-16">
+                    <h4 class="text-blue-600 font-bold tracking-wide uppercase text-sm mb-2">Next-Gen Tooling</h4>
+                    <h2 class="text-3xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
+                        A Fascinating IDE, Built for Silicon.
+                    </h2>
+                    <p class="text-gray-600 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+                        No massive downloads or complex environment setups required. Write, compile, simulate, and visualize your Verilog and SystemVerilog code directly from your browser.
+                    </p>
+                </div>
+
+                <!-- Dynamic Grid Layout -->
+                <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+                    
+                    <!-- Left Column: Interactive Controls -->
+                    <div class="w-full lg:w-1/3 flex flex-col gap-4">
+                        
+                        <!-- Tab 1: Editor -->
+                        <button onclick="switchIdeImage('editor', false)" id="ide-btn-editor" class="ide-tab-btn active text-left p-5 md:p-6 rounded-2xl border-2 transition-all duration-300 border-blue-600 bg-white shadow-md">
+                            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+                                Dual-Pane Editor
+                            </h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">Write your design and testbench side-by-side with syntax highlighting and instant secure cloud compilation.</p>
+                        </button>
+                        
+                        <!-- Tab 2: Waveform -->
+                        <button onclick="switchIdeImage('wave', false)" id="ide-btn-wave" class="ide-tab-btn text-left p-5 md:p-6 rounded-2xl border-2 transition-all duration-300 border-transparent bg-transparent hover:bg-white hover:border-gray-200 opacity-70 hover:opacity-100">
+                            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                                Interactive Wave Reports
+                            </h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">Debug visually. Instantly generate and analyze VCD wave reports to track logic states down to the nanosecond.</p>
+                        </button>
+                        
+                        <!-- Tab 3: Schematic -->
+                        <button onclick="switchIdeImage('schematic', false)" id="ide-btn-schematic" class="ide-tab-btn text-left p-5 md:p-6 rounded-2xl border-2 transition-all duration-300 border-transparent bg-transparent hover:bg-white hover:border-gray-200 opacity-70 hover:opacity-100">
+                            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" /></svg>
+                                RTL Schematic Viewer
+                            </h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">See the hardware you build. Convert your RTL code into beautiful logic block diagrams seamlessly.</p>
+                        </button>
+
+                    </div>
+
+                    <!-- Right Column: Image Display -->
+                    <div class="w-full lg:w-2/3">
+                        <div class="bg-[#0f172a] rounded-2xl md:rounded-3xl p-1 md:p-3 shadow-2xl relative aspect-[16/10] overflow-hidden border border-gray-800 flex items-center justify-center group">
+                            
+                            <!-- Editor Image -->
+                            <img id="ide-img-editor" src="images/code_editor.png" alt="LogicSilicon Dual-Pane Editor" class="ide-img absolute inset-0 w-full h-full object-contain p-2 transition-all duration-700 opacity-100 z-10 transform scale-100">
+                            
+                            <!-- Waveform Image -->
+                            <img id="ide-img-wave" src="images/waveform_viewer.png" alt="Interactive Waveform Viewer" class="ide-img absolute inset-0 w-full h-full object-contain p-2 transition-all duration-700 opacity-0 z-0 transform scale-95">
+                            
+                            <!-- Schematic Image -->
+                            <img id="ide-img-schematic" src="images/rtl_viewer.png" alt="RTL Schematic Viewer" class="ide-img absolute inset-0 w-full h-full object-contain p-2 transition-all duration-700 opacity-0 z-0 transform scale-95">
+                        
+                            <div class="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl md:rounded-3xl pointer-events-none z-20"></div>
+                        </div>
+                        <div class="mt-6 flex justify-center lg:justify-end">
+                            <a href="https://ide.logicsilicon.in" target="_blank" class="px-6 py-2.5 bg-gray-100 text-blue-600 rounded-full font-bold text-sm hover:bg-blue-50 transition-colors inline-flex items-center gap-2 shadow-sm border border-gray-200">
+                                Launch IDE Sandbox <span aria-hidden="true">&rarr;</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+        <!-- ==========================================
+             END: DYNAMIC IDE SHOWCASE SECTION
+        =========================================== -->
 
         <section class="py-16 md:py-24 bg-white" id="features">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 md:space-y-24">
@@ -1412,6 +1498,48 @@
             carousel.addEventListener('mouseenter', () => clearInterval(scrollInterval));
             startAutoScroll();
         });
+
+        /* IDE Showcase Image Switching Logic */
+        const ideTabsList = ['editor', 'wave', 'schematic'];
+        let currentIdeTabIndex = 0;
+        
+        // Auto-play interval
+        let ideInterval = setInterval(() => {
+            currentIdeTabIndex = (currentIdeTabIndex + 1) % ideTabsList.length;
+            switchIdeImage(ideTabsList[currentIdeTabIndex], true);
+        }, 4000); // changes image every 4 seconds
+
+        function switchIdeImage(tabId, isAuto = false) {
+            // If user clicked manually, stop auto-play so it doesn't jump away from what they clicked
+            if (!isAuto) {
+                clearInterval(ideInterval);
+                currentIdeTabIndex = ideTabsList.indexOf(tabId);
+            }
+
+            // 1. Reset all buttons
+            const btns = document.querySelectorAll('.ide-tab-btn');
+            btns.forEach(btn => {
+                btn.classList.remove('border-blue-600', 'bg-white', 'shadow-md', 'opacity-100');
+                btn.classList.add('border-transparent', 'bg-transparent', 'opacity-70');
+            });
+
+            // 2. Activate target button
+            const activeBtn = document.getElementById('ide-btn-' + tabId);
+            activeBtn.classList.remove('border-transparent', 'bg-transparent', 'opacity-70');
+            activeBtn.classList.add('border-blue-600', 'bg-white', 'shadow-md', 'opacity-100');
+
+            // 3. Reset all images
+            const imgs = document.querySelectorAll('.ide-img');
+            imgs.forEach(img => {
+                img.classList.remove('opacity-100', 'z-10', 'scale-100');
+                img.classList.add('opacity-0', 'z-0', 'scale-95');
+            });
+
+            // 4. Show target image with slight zoom-in effect
+            const activeImg = document.getElementById('ide-img-' + tabId);
+            activeImg.classList.remove('opacity-0', 'z-0', 'scale-95');
+            activeImg.classList.add('opacity-100', 'z-10', 'scale-100');
+        }
 
         /* Syllabus Modal Data Logic */
         const syllabusData = {
